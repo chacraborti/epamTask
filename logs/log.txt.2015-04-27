@@ -1,0 +1,21 @@
+27.04.2015 10:16:31 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@64b8f8f4 released
+27.04.2015 10:17:32 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@3d04a311 released
+27.04.2015 10:45:13 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@5f205aa released
+27.04.2015 10:45:56 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@5f205aa released
+27.04.2015 10:46:57 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@5f205aa released
+27.04.2015 14:57:34 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@5f205aa released
+27.04.2015 14:57:34 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@3c679bde released
+27.04.2015 14:58:22 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@5f205aa released
+27.04.2015 14:58:22 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@8807e25 released
+27.04.2015 15:01:05 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@5f205aa released
+27.04.2015 15:01:05 [main] INFO  com.epam.sidarovich.dao.UserDAO  - Инна Макарова has been created
+27.04.2015 15:01:05 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@47089e5f released
+27.04.2015 15:14:52 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@5f205aa released
+27.04.2015 15:14:52 [main] INFO  com.epam.sidarovich.dao.UserDAO  - Инна Макарова has been created
+27.04.2015 15:14:52 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@47089e5f released
+27.04.2015 17:21:21 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@5f205aa released
+27.04.2015 17:21:21 [main] INFO  com.epam.sidarovich.dao.UserDAO  - Инна Макарова has been created
+27.04.2015 17:21:21 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@47089e5f released
+27.04.2015 17:24:07 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@5f205aa released
+27.04.2015 17:24:07 [main] INFO  com.epam.sidarovich.dao.UserDAO  - Инна Макарова has been created
+27.04.2015 17:24:07 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@47089e5f released

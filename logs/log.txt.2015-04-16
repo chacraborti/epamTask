@@ -1,0 +1,3 @@
+16.04.2015 22:20:02 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@383534aa released
+16.04.2015 23:00:39 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@5577140b released
+16.04.2015 23:01:26 [main] INFO  com.epam.sidarovich.connection.ConnectionPool  - Connection com.mysql.jdbc.JDBC4Connection@69222c14 released
