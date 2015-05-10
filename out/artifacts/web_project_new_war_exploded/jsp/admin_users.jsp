@@ -45,11 +45,13 @@
                     </td>
 
                     <td>
+                <c:if test="${!element.isRegular}">
                         <form name="regularButton" method="POST" action="controller">
                             <input type="hidden" name="command" value="make_regular" />
                             <input type="hidden" name="userEmail" value="${element.email}">
                             <input type="submit" value="<fmt:message key="make_regular" />"  class="button"/>
                         </form>
+                    </c:if>
                     </td>
                 </tr>
                 </c:if>

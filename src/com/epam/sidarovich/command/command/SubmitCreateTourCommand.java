@@ -13,13 +13,11 @@ import org.joda.time.format.DateTimeFormatter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by ilona on 07.05.15.
@@ -60,6 +58,7 @@ public class SubmitCreateTourCommand implements ActionCommand{
         } catch (LogicException e) {
             throw new CommandException(e);
         }
+        Collections.reverse(tours);
         HttpSession session = request.getSession();
         User user=(User)session.getAttribute("user");
         session.setAttribute("isAdmin", user.getIsAdmin());

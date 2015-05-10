@@ -69,6 +69,17 @@ public enum CommandEnum {
         {
             this.command = new ObserveUsersCommand();
         }
+    }
+    ,
+    CANCEL_ORDER{
+        {
+            this.command = new CancelOrderCommand();
+        }
+    } ,
+    PAY_ORDER{
+        {
+            this.command = new PayOrderCommand();
+        }
     };
 
     ActionCommand command;

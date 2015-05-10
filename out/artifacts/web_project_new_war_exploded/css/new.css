@@ -218,4 +218,8 @@ p{
 #tour{
     text-align: left;
 }
+.pagename{
+    padding-left: 100px;
+    color: #666666;
+}
 

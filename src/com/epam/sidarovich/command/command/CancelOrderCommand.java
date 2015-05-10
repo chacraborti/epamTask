@@ -3,12 +3,10 @@ package com.epam.sidarovich.command.command;
 import com.epam.sidarovich.command.ConfigurationManager;
 import com.epam.sidarovich.entity.Order;
 import com.epam.sidarovich.entity.OrderStatus;
-import com.epam.sidarovich.entity.Tour;
 import com.epam.sidarovich.entity.User;
 import com.epam.sidarovich.exception.CommandException;
 import com.epam.sidarovich.exception.LogicException;
 import com.epam.sidarovich.logic.OrderLogic;
-import com.epam.sidarovich.logic.TourLogic;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,35 +14,30 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by ilona on 05.05.15.
+ * Created by ilona on 10.05.15.
  */
-public class MakeOrderCommand implements ActionCommand{
-
+public class CancelOrderCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
-
         HttpSession session = request.getSession();
         OrderLogic orderLogic = new OrderLogic();
-        TourLogic tourLogic=new TourLogic();
-
         User user = (User)session.getAttribute("user");
         String email = user.getEmail();
-        Tour tour;
-        int idTour=Integer.valueOf(request.getParameter("tourId"));
-        try {
-            tour = tourLogic.createById(idTour);
-        } catch (LogicException e) {
-            throw new CommandException(e);
-        }
         Order order;
+        int id = Integer.valueOf(request.getParameter("orderId"));
         try {
-            order=orderLogic.createOrder(tour, email, OrderStatus.ACTIVE);
+            order=orderLogic.findById(id);
+        } catch (LogicException e) {
+            throw new CommandException();
+        }
+        try {
+            orderLogic.updateOrderStatus(order, OrderStatus.CANCELED);
         } catch (LogicException e) {
             throw new CommandException();
         }
         List<Order> orderList;
         try {
-           orderList = orderLogic.findByEmail(email);
+            orderList = orderLogic.findByEmail(email);
         } catch (LogicException e) {
             throw new CommandException(e);
         }
@@ -53,5 +46,4 @@ public class MakeOrderCommand implements ActionCommand{
         return ConfigurationManager.getProperty("path.page.cart");
 
     }
-
 }

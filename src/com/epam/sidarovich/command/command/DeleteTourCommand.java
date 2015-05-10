@@ -9,6 +9,7 @@ import com.epam.sidarovich.logic.TourLogic;
 import com.epam.sidarovich.logic.UserLogic;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,6 +33,7 @@ public class DeleteTourCommand implements ActionCommand {
         } catch (LogicException e) {
             throw new CommandException(e);
         }
+        Collections.reverse(tours);
         request.setAttribute("tours", tours);
         return ConfigurationManager.getProperty("path.page.tours");
     }

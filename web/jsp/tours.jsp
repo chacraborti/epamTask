@@ -3,17 +3,18 @@
 <%@ taglib prefix="ctg" uri="customtags"%><html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="utf-8" %>
 <fmt:setLocale value="${Locale}" scope="session" />
-<fmt:bundle basename="resources.pagecontent" prefix = "tour_table." >
 
+<fmt:bundle basename="resources.pagecontent" prefix = "title." >
     <html>
+
     <head>
         <link rel="stylesheet" href="css/new.css" type="text/css" />
-        <title>Parsed table</title>
+        <title><fmt:message key="tours" /></title>
     </head>
     <body>
     <c:import url="header.jsp" />
-    <%--<div>pusher</div>--%>
-        <c:forEach items="${tours}" var="element">
+    <div ><h2 class="pagename"><fmt:message key="tours" /></h2></div>
+        <c:forEach items="${tours}" var="element" >
             <div class="content-wrapper">
                 <div class="content-card">
                     <div class="part" id="country" >${element.country}</div>
@@ -22,6 +23,7 @@
                         <ctg:tour-type tourType="${element.tourType}"></ctg:tour-type>
                     </div>
                 </div>
+                <fmt:bundle basename="resources.pagecontent" prefix = "tour_table." >
                 <div class="content-card">
                     <div class="part"><fmt:message key="cost" /> ${element.cost} $</div>
                     <div class="part">
@@ -55,11 +57,10 @@
                         </c:choose>
                     </div>
                 </div>
+                </fmt:bundle>
             </div>
 
         </c:forEach>
-
-
     <br/>
     </body>
     </html>

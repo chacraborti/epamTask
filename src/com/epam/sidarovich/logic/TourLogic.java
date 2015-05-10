@@ -44,4 +44,14 @@ public List<Tour> viewAllTours() throws LogicException{
             throw new LogicException(e);
         }
     }
+    public Tour createById(int id) throws LogicException{
+        TourDAO tourDAO = new TourDAO();
+        Tour tour = new Tour();
+        try {
+            tour=tourDAO.findEntityById(id);
+        } catch (DAOException e) {
+            throw new LogicException(e);
+        }
+        return tour;
+    }
 }

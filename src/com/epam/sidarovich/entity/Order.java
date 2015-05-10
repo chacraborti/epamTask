@@ -4,9 +4,8 @@ package com.epam.sidarovich.entity;
  * Created by ilona on 21.03.15.
  */
 public class Order extends Entity {
-    private int idTour;
+    private int id;
     private Tour tour;
-    private User user;
     private String emailUser;
     private OrderStatus orderStatus;
 
@@ -14,24 +13,17 @@ public class Order extends Entity {
 
     }
 
-    public Order(Tour tour, User user, OrderStatus orderStatus) {
-        this.tour = tour;
-        this.user = user;
-        this.orderStatus = orderStatus;
-    }
-
-    public Order(int idTour, String emailUser, OrderStatus orderStatus) {
-        this.idTour = idTour;
+    public Order(Tour tour, String emailUser, OrderStatus orderStatus) {
+        this.tour=tour;
         this.emailUser = emailUser;
         this.orderStatus = orderStatus;
     }
 
-    public int getIdTour() {
-        return idTour;
-    }
-
-    public void setIdTour(int idTour) {
-        this.idTour = idTour;
+    public Order(int id, Tour tour, String emailUser, OrderStatus orderStatus) {
+        this.id = id;
+        this.tour = tour;
+        this.emailUser = emailUser;
+        this.orderStatus = orderStatus;
     }
 
     public String getEmailUser() {
@@ -50,13 +42,20 @@ public class Order extends Entity {
         this.orderStatus = orderStatus;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "idTour=" + idTour +
-                ", emailUser='" + emailUser + '\'' +
-                ", orderStatus=" + orderStatus +
-                '}';
+    public Tour getTour() {
+        return tour;
+    }
+
+    public void setTour(Tour tour) {
+        this.tour = tour;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -66,18 +65,27 @@ public class Order extends Entity {
 
         Order order = (Order) o;
 
-        if (idTour != order.idTour) return false;
         if (!emailUser.equals(order.emailUser)) return false;
         if (orderStatus != order.orderStatus) return false;
+        if (!tour.equals(order.tour)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = idTour;
+        int result = tour.hashCode();
         result = 31 * result + emailUser.hashCode();
         result = 31 * result + orderStatus.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "tour=" + tour +
+                ", emailUser='" + emailUser + '\'' +
+                ", orderStatus=" + orderStatus +
+                '}';
     }
 }

@@ -23,8 +23,8 @@
 
             <div class="section" id="logout">
                 <form name="logoutForm" method="POST" action="controller">
-                        <input type="hidden" name="command" value="logout" />
-                        <p><input type="submit" value=<fmt:message key="log_out" /> class="button"></p>
+                    <input type="hidden" name="command" value="logout" />
+                    <p><input type="submit" value=<fmt:message key="log_out" /> class="button"></p>
 
                 </form>
                 </form>

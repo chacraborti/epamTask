@@ -44,10 +44,11 @@ public class Main {
 //        } catch (DAOException e) {
 //            e.printStackTrace();
 //        }
-//        GregorianCalendar calendar = new GregorianCalendar(2015,06,15);
-//        Tour tour = new Tour(calendar, true, TourType.REST, 5000, 0, "Россия" );
+        //GregorianCalendar calendar = new GregorianCalendar(2015,06,15);
+//        Tour tour = new Tour();
 //        try {
-//            tourDAO.create(tour);
+//            tour=tourDAO.findEntityById(25);
+//            System.out.println(tour.toString());
 //        } catch (DAOException e) {
 //            e.printStackTrace();
 //        }
@@ -60,8 +61,12 @@ public class Main {
 //                System.out.println(tour);
 //            }
         OrderDAO orderDAO = new OrderDAO();
-        Order order = new Order(1,"ghh", OrderStatus.ACTIVE);
-        orderDAO.create(order);
+//        Order order=new Order(tour, "xcvbn",OrderStatus.ACTIVE);
+//        orderDAO.create(order);
+        List<Order> orders=orderDAO.findByEmail("danish@mail.ru");
+        for (Order order:orders){
+            System.out.println(order.toString());
+        }
 
         //tourDAO.findAll();
 
