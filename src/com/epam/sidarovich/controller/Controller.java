@@ -2,13 +2,11 @@ package com.epam.sidarovich.controller;
 
 
 
-import com.epam.sidarovich.command.ConfigurationManager;
 import com.epam.sidarovich.command.command.ActionCommand;
 import com.epam.sidarovich.command.command.ActionFactory;
 import com.epam.sidarovich.connection.ConnectionPool;
 import com.epam.sidarovich.exception.CommandException;
 import com.epam.sidarovich.exception.ConnectionPoolException;
-import manager.MessageManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
@@ -19,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  * Created by ilona on 01.04.15.
@@ -40,6 +37,14 @@ import java.sql.SQLException;
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException { processRequest(request, response);
         }
+
+    /**
+     * Process request from jsp
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
         private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             ActionFactory client = new ActionFactory();
             ActionCommand command = client.defineCommand(request);
@@ -60,15 +65,17 @@ import java.sql.SQLException;
 
             }
         }
-    public void destroy(  ) {
+
+    /**
+     * Destroy servlet
+     */
+    public void destroy() {
         ConnectionPool connectionPool;
-        try {
-            connectionPool = ConnectionPool.getConnectionPool();
-            connectionPool.shutDownConnections();
-        } catch (ConnectionPoolException e) {
-            LOG.error(e);
-        }
+        connectionPool = ConnectionPool.getConnectionPool();
+        connectionPool.shutDownConnections();
+
     }
+
 
     }
 

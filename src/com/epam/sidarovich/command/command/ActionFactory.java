@@ -1,8 +1,8 @@
 package com.epam.sidarovich.command.command;
 
 
-import manager.MessageManager;
 import org.apache.log4j.Logger;
+import com.epam.sidarovich.manager.*;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +11,11 @@ public class ActionFactory {
 
     private static final Logger LOG = Logger.getLogger(ActionCommand.class);
 
+    /**
+     * Define executing command
+     * @param request
+     * @return
+     */
     public ActionCommand defineCommand(HttpServletRequest request) {
 
        ActionCommand currentCommand = new EmptyCommand();

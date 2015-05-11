@@ -1,6 +1,6 @@
 package com.epam.sidarovich.command.command;
 
-import com.epam.sidarovich.command.ConfigurationManager;
+import com.epam.sidarovich.manager.*;
 import com.epam.sidarovich.entity.User;
 import com.epam.sidarovich.exception.CommandException;
 import com.epam.sidarovich.exception.LogicException;
@@ -8,7 +8,6 @@ import com.epam.sidarovich.logic.UserLogic;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -16,6 +15,13 @@ import java.util.List;
  */
 public class SetUserDiscountCommand implements ActionCommand{
     private static final Logger LOG = Logger.getLogger(SetUserDiscountCommand.class);
+
+    /**
+     * Set discount for user^ if user is not admin & is regular, go to user page
+     * @param request
+     * @return
+     * @throws CommandException
+     */
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
 

@@ -1,12 +1,16 @@
 package com.epam.sidarovich.command.command;
 
 
-import com.epam.sidarovich.command.ConfigurationManager;
-import com.epam.sidarovich.entity.User;
+import com.epam.sidarovich.manager.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class LogoutCommand implements ActionCommand {
+    /**
+     * Logout
+     * @param request
+     * @return
+     */
     @Override
     public String execute(HttpServletRequest request) {
 

@@ -1,12 +1,12 @@
 package com.epam.sidarovich.command.command;
 
-import com.epam.sidarovich.command.ConfigurationManager;
 import com.epam.sidarovich.entity.Tour;
 import com.epam.sidarovich.entity.TourType;
 import com.epam.sidarovich.entity.User;
 import com.epam.sidarovich.exception.CommandException;
 import com.epam.sidarovich.exception.LogicException;
 import com.epam.sidarovich.logic.TourLogic;
+import com.epam.sidarovich.manager.*;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +14,10 @@ import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * Created by ilona on 07.05.15.
@@ -22,6 +25,13 @@ import java.util.*;
 public class CreateTourCommand implements ActionCommand{
 
     private static final Logger LOG = Logger.getLogger(CreateTourCommand.class);
+
+    /**
+     * Create tour, if country, date and cost>0 are entered, return tours page
+     * @param request
+     * @return
+     * @throws CommandException
+     */
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         TourLogic tourLogic = new TourLogic();

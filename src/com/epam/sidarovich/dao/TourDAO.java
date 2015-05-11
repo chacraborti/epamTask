@@ -25,7 +25,6 @@ public class TourDAO extends AbstractDAO<Tour> {
     private static final String CREATE_TOUR = "INSERT INTO Tour (Date, isHot, idTourType, Cost, Discount, Country) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_TOUR = "UPDATE Tour SET Date = ?, isHot = ?, idTourType = ?, Cost = ?, Discount = ?, Country = ?  WHERE id = ?";
     private static final String TOUR_TYPE = "SELECT TourType.Name FROM TourType WHERE idTourType = ?";
-   // private static final String FIND_ORDERED_TOURS = "select Country, Date, isHot, idTourType, Cost, Purchase.emailUser from Tour join Purchase on Purchase.idTour=Tour.idTour";
 
     @Override
     public List<Tour> findAll() throws DAOException {
@@ -44,23 +43,18 @@ public class TourDAO extends AbstractDAO<Tour> {
             }
         } catch (SQLException e) {
             throw new DAOException();
-        } catch (ConnectionPoolException e) {
-            throw new DAOException();
-        } finally {
-                close(statement);
+        }
+        finally {
+            close(statement);
             connectionPool.releaseConnection(connection);
         }
         return tours;
     }
 
-    public Tour findEntityById(int id) throws DAOException {
+    public Tour findTourById(int id) throws DAOException {
         Tour tour = null;
-        ConnectionPool connectionPool = null;
-        try {
-            connectionPool = ConnectionPool.getConnectionPool();
-        } catch (ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
+        ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
+
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
         try {
@@ -73,58 +67,17 @@ public class TourDAO extends AbstractDAO<Tour> {
 
         } catch (SQLException e) {
             throw new DAOException(e);
-        } finally {
-
+        }
+        finally {
                 close(statement);
-
             connectionPool.releaseConnection(connection);
         }
         return tour;
     }
 
-
-    public int delete(int id) throws DAOException {
-        ConnectionPool connectionPool = null;
-        try {
-            connectionPool = ConnectionPool.getConnectionPool();
-        } catch (ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
-
-        Connection connection = connectionPool.getConnection();
-        PreparedStatement statement = null;
-            try {
-                statement = connection.prepareStatement(DELETE_TOUR_BY_ID);
-                statement.setInt(1, id);
-                if (statement.executeUpdate() > 0) {
-                    return statement.executeUpdate();
-                } else {
-                    throw new DAOException("Delete tour failed");
-                }
-
-            } catch (SQLException e) {
-                throw new DAOException(e);
-            } finally {
-
-                    close(statement);
-
-                connectionPool.releaseConnection(connection);
-            }
-    }
-    @Override
-    public boolean delete(Tour tour) throws DAOException {
-        return false;
-    }
-
     @Override
     public boolean create(Tour tour) throws DAOException {
-        ConnectionPool connectionPool;
-        try {
-            connectionPool = ConnectionPool.getConnectionPool();
-        } catch (ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
-
+        ConnectionPool connectionPool= ConnectionPool.getConnectionPool();
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
         boolean flag;
@@ -176,14 +129,32 @@ public class TourDAO extends AbstractDAO<Tour> {
         return false;
     }
 
+    public int deleteTourById(int id) throws DAOException{
+        ConnectionPool connectionPool  = ConnectionPool.getConnectionPool();
+
+        Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement(DELETE_TOUR_BY_ID);
+            statement.setInt(1,id);
+            if (statement.executeUpdate() > 0){
+                return statement.executeUpdate();
+            } else{
+                throw new DAOException("Delete tour failed");
+            }
+
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            close(statement);
+
+            connectionPool.releaseConnection(connection);
+        }
+    }
     @Override
     public int update(Tour tour) throws DAOException {
-        ConnectionPool connectionPool = null;
-        try {
-            connectionPool = ConnectionPool.getConnectionPool();
-        } catch (ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
+        ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
 
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
@@ -265,30 +236,5 @@ public class TourDAO extends AbstractDAO<Tour> {
     public void close(Statement st) {
         super.close(st);
     }
-
-//    public List <Tour> findOrderedTours() throws DAOException{
-//        List<Tour> tours = new ArrayList<>();
-//        ConnectionPool connectionPool = null;
-//        PreparedStatement statement = null;
-//        Connection connection = null;
-//        try {
-//            connectionPool = ConnectionPool.getConnectionPool();
-//            connection = connectionPool.getConnection();
-//            statement = connection.prepareStatement(FIND_ORDERED_TOURS);
-//            ResultSet resultSet = statement.executeQuery();
-//            while (resultSet.next()) {
-//                Tour tour = createEntity(resultSet);
-//                tours.add(tour);
-//            }
-//        } catch (SQLException e) {
-//            throw new DAOException();
-//        } catch (ConnectionPoolException e) {
-//            throw new DAOException();
-//        } finally {
-//            close(statement);
-//            connectionPool.releaseConnection(connection);
-//        }
-//        return tours;
-//    }
 
 }

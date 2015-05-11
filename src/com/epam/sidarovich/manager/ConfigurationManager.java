@@ -1,4 +1,4 @@
-package com.epam.sidarovich.command;
+package com.epam.sidarovich.manager;
 
 import java.util.ResourceBundle;
 
@@ -8,6 +8,12 @@ import java.util.ResourceBundle;
 public class ConfigurationManager {
     private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("resources.config");
     private ConfigurationManager() { }
+
+    /**
+     * Get information from configuration file
+     * @param key
+     * @return
+     */
     public static String getProperty(String key) {
         return resourceBundle.getString(key);
     }

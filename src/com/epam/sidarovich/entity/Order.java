@@ -10,7 +10,6 @@ public class Order extends Entity {
     private OrderStatus orderStatus;
 
     public Order() {
-
     }
 
     public Order(Tour tour, String emailUser, OrderStatus orderStatus) {

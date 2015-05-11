@@ -15,6 +15,11 @@ public class TourTypeTag extends TagSupport {
         this.tourType = tourType;
     }
 
+    /**
+     * Custom tag, showing the picture depend on tour type
+     * @return
+     * @throws JspException
+     */
     @Override
     public int doStartTag() throws JspException {
         try {

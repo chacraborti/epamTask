@@ -1,20 +1,25 @@
 package com.epam.sidarovich.command.command;
 
-import com.epam.sidarovich.command.ConfigurationManager;
+import com.epam.sidarovich.manager.*;
 import com.epam.sidarovich.entity.User;
 import com.epam.sidarovich.exception.CommandException;
 import com.epam.sidarovich.exception.LogicException;
 import com.epam.sidarovich.logic.UserLogic;
 import com.epam.sidarovich.validator.Validator;
-import manager.MessageManager;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * Created by ilona on 27.04.15.
  */
 public class SignUpCommand implements ActionCommand {
+    /**
+     * Sign up to the site, if user not exist & email & password are valid, go to login page, show success message
+     * Else show error message
+     * @param request
+     * @return
+     * @throws CommandException
+     */
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         UserLogic userLogic = new UserLogic();

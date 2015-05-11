@@ -26,6 +26,10 @@ public class UserDAO extends AbstractDAO<User> {
     private static final String FIND_USER_BY_EMAIL_ADN_PASSWORD = "SELECT User.Email, User.Password, User.Role, User.Name, User.userDiscount, User.isRegular FROM User WHERE User.Email=? AND User.Password = md5(?)";
     private static final String UPDATE_USER_DISCOUNT=  "UPDATE User SET userDiscount=? WHERE Email = ?";
 
+    /**
+     * @return
+     * @throws DAOException
+     */
     @Override
     public List<User> findAll() throws DAOException{
         List<User> users = new ArrayList<>();
@@ -42,24 +46,22 @@ public class UserDAO extends AbstractDAO<User> {
             }
         } catch (SQLException e) {
             LOG.error("SQL exception (request or table failed): " + e);
-        } catch (ConnectionPoolException e) {
-            throw new DAOException();
-
-        } finally {
+        }
+        finally {
                 close(statement);
             connectionPool.releaseConnection(connection);
         }
         return users;
     }
 
+    /**
+     * @param email
+     * @return
+     * @throws DAOException
+     */
     public User findEntityByEmail(String email) throws DAOException {
         User user = null;
-            ConnectionPool connectionPool = null;
-            try{
-                connectionPool = ConnectionPool.getConnectionPool();
-            } catch (ConnectionPoolException e){
-                throw new DAOException(e);
-            }
+            ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
             Connection connection = connectionPool.getConnection();
             PreparedStatement statement = null;
                 try{
@@ -80,13 +82,14 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
 
-    public int delete(String email) throws DAOException{
-        ConnectionPool connectionPool = null;
-        try{
-            connectionPool = ConnectionPool.getConnectionPool();
-        } catch (ConnectionPoolException e){
-            throw new DAOException(e);
-        }
+    /**
+     * @param email
+     * @return
+     * @throws DAOException
+     */
+    public int deleteUserByEmail(String email) throws DAOException{
+        ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
+
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
 
@@ -109,19 +112,16 @@ public class UserDAO extends AbstractDAO<User> {
 
     }
 
-    @Override
-    public boolean delete(User user) {
-        return false;
-    }
 
+    /**
+     * @param user
+     * @return
+     * @throws DAOException
+     */
     @Override
     public boolean create(User user) throws DAOException {
-        ConnectionPool connectionPool = null;
-        try {
-            connectionPool = ConnectionPool.getConnectionPool();
-        } catch (ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
+        ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
+
 
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
@@ -163,14 +163,15 @@ public class UserDAO extends AbstractDAO<User> {
             }
     }
 
+    /**
+     * @param user
+     * @return
+     * @throws DAOException
+     */
     @Override
     public int update(User user) throws DAOException {
-            ConnectionPool connectionPool = null;
-            try {
-                connectionPool = ConnectionPool.getConnectionPool();
-            } catch (ConnectionPoolException e) {
-                throw new DAOException(e);
-            }
+            ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
+
 
             Connection connection = connectionPool.getConnection();
             PreparedStatement statement = null;
@@ -211,6 +212,11 @@ public class UserDAO extends AbstractDAO<User> {
                     }
     }
 
+    /**
+     * @param resultSet
+     * @return
+     * @throws DAOException
+     */
     @Override
      public User createEntity(ResultSet resultSet) throws DAOException{
         User user = new User();
@@ -248,13 +254,13 @@ public class UserDAO extends AbstractDAO<User> {
         return user;
     }
 
+    /**
+     * @param email
+     * @return
+     * @throws DAOException
+     */
     public int updateAsRegular(String email) throws DAOException {
-        ConnectionPool connectionPool ;
-        try {
-            connectionPool = ConnectionPool.getConnectionPool();
-        } catch (ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
+        ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
 
@@ -277,13 +283,15 @@ public class UserDAO extends AbstractDAO<User> {
         }
     }
 
+    /**
+     * @param email
+     * @param discount
+     * @return
+     * @throws DAOException
+     */
     public int updateUserDiscount (String email, int discount) throws DAOException {
-        ConnectionPool connectionPool ;
-        try {
-            connectionPool = ConnectionPool.getConnectionPool();
-        } catch (ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
+        ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
+
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
 
@@ -305,14 +313,16 @@ public class UserDAO extends AbstractDAO<User> {
         }
     }
 
+    /**
+     * @param email
+     * @param password
+     * @return
+     * @throws DAOException
+     */
     public User findUserByEmailPassword(String email, String password) throws DAOException{
         User user = null;
-        ConnectionPool connectionPool = null;
-        try{
-            connectionPool = ConnectionPool.getConnectionPool();
-        } catch (ConnectionPoolException e){
-            throw new DAOException(e);
-        }
+        ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
+
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
         try{

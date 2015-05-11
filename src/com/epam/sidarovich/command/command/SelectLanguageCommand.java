@@ -2,12 +2,17 @@ package com.epam.sidarovich.command.command;
 
 
 
-import com.epam.sidarovich.command.ConfigurationManager;
+import com.epam.sidarovich.manager.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class SelectLanguageCommand implements ActionCommand{
+    /**
+     * Select language, go to login page
+     * @param request
+     * @return
+     */
     @Override
     public String execute(HttpServletRequest request) {
 

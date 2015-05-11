@@ -12,12 +12,23 @@ public class Validator {
     public static final String LETTER_LOWER_CASE="[a-z]";
     public static final String NUMBER="\\d";
 
+    /**
+     * Validate email
+     * @param email
+     * @return
+     */
     public boolean isValidEmailAddress(String email) {
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher m = pattern.matcher(email);
         return m.matches();
     }
 
+    /**
+     * Validate password
+     * @param pass1
+     * @param pass2
+     * @return
+     */
     public boolean isValidPassword(String pass1, String pass2) {
         Pattern patternUpperCase = Pattern.compile(LETTER_UPPER_CASE);
         Pattern patternLowerCase = Pattern.compile(LETTER_LOWER_CASE);

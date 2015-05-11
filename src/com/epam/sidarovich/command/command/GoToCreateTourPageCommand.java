@@ -1,18 +1,20 @@
 package com.epam.sidarovich.command.command;
 
-import com.epam.sidarovich.command.ConfigurationManager;
-import com.epam.sidarovich.entity.Tour;
+import com.epam.sidarovich.manager.*;
 import com.epam.sidarovich.exception.CommandException;
-import com.epam.sidarovich.exception.LogicException;
-import com.epam.sidarovich.logic.TourLogic;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * Created by ilona on 07.05.15.
  */
 public class GoToCreateTourPageCommand implements ActionCommand {
+    /**
+     * Go to create tour page
+     * @param request
+     * @return
+     * @throws CommandException
+     */
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         return ConfigurationManager.getProperty("path.page.admin_create_tour");

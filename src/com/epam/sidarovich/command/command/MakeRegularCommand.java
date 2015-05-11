@@ -1,6 +1,6 @@
 package com.epam.sidarovich.command.command;
 
-import com.epam.sidarovich.command.ConfigurationManager;
+import com.epam.sidarovich.manager.*;
 import com.epam.sidarovich.entity.User;
 import com.epam.sidarovich.exception.CommandException;
 import com.epam.sidarovich.exception.LogicException;
@@ -15,6 +15,13 @@ import java.util.List;
  */
 public class MakeRegularCommand implements ActionCommand{
     private static final Logger LOG = Logger.getLogger(MakeRegularCommand.class);
+
+    /**
+     * Make client become regular, if client is not admin, go to users page
+     * @param request
+     * @return
+     * @throws CommandException
+     */
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         UserLogic userLogic = new UserLogic();

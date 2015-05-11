@@ -12,6 +12,13 @@ import com.epam.sidarovich.exception.LogicException;
  */
 public class LoginLogic {
 
+    /**
+     * Check user email and password
+     * @param email
+     * @param password
+     * @return user
+     * @throws LogicException
+     */
     public static User checkEmailPassword(String email, String password) throws LogicException{
             UserDAO dao = new UserDAO();
         User user;

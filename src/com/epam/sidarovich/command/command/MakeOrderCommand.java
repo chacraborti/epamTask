@@ -1,6 +1,6 @@
 package com.epam.sidarovich.command.command;
 
-import com.epam.sidarovich.command.ConfigurationManager;
+import com.epam.sidarovich.manager.*;
 import com.epam.sidarovich.entity.Order;
 import com.epam.sidarovich.entity.OrderStatus;
 import com.epam.sidarovich.entity.Tour;
@@ -20,6 +20,12 @@ import java.util.List;
  */
 public class MakeOrderCommand implements ActionCommand{
 
+    /**
+     * User make order, go to cart page
+     * @param request
+     * @return
+     * @throws CommandException
+     */
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
 
@@ -32,7 +38,7 @@ public class MakeOrderCommand implements ActionCommand{
         Tour tour;
         int idTour=Integer.valueOf(request.getParameter("tourId"));
         try {
-            tour = tourLogic.createById(idTour);
+            tour = tourLogic.createTourById(idTour);
         } catch (LogicException e) {
             throw new CommandException(e);
         }
@@ -44,7 +50,7 @@ public class MakeOrderCommand implements ActionCommand{
         }
         List<Order> orderList;
         try {
-           orderList = orderLogic.findByEmail(email);
+           orderList = orderLogic.findOrderByEmail(email);
         } catch (LogicException e) {
             throw new CommandException(e);
         }

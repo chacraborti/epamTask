@@ -1,14 +1,8 @@
 package com.epam.sidarovich.command.command;
 
-import com.epam.sidarovich.command.ConfigurationManager;
-import com.epam.sidarovich.connection.ConnectionPool;
-import com.epam.sidarovich.dao.TourDAO;
-import com.epam.sidarovich.dao.UserDAO;
-import com.epam.sidarovich.entity.Tour;
+import com.epam.sidarovich.manager.*;
 import com.epam.sidarovich.entity.User;
 import com.epam.sidarovich.exception.CommandException;
-import com.epam.sidarovich.exception.ConnectionPoolException;
-import com.epam.sidarovich.exception.DAOException;
 import com.epam.sidarovich.exception.LogicException;
 import com.epam.sidarovich.logic.UserLogic;
 
@@ -19,6 +13,12 @@ import java.util.List;
  * Created by ilona on 12.04.15.
  */
 public class ObserveUsersCommand implements ActionCommand{
+    /**
+     * View users
+     * @param request
+     * @return
+     * @throws CommandException
+     */
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         UserLogic userLogic = new UserLogic();

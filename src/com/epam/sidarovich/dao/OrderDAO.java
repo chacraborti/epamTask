@@ -15,12 +15,18 @@ import java.util.List;
  */
 public class OrderDAO extends AbstractDAO<Order>{
     private static final String SELECT_ALL_FROM_ORDERS = "SELECT emailUser, OrderStatus, Tour.idTour, Country, Cost, Discount, isHot, Date , TourType.Name FROM Purchase JOIN Tour ON Purchase.idTour=Tour.idTour JOIN TourType on Tour.idTourType=TourType.idTourType";
-    private static final String DELETE_ORDER_BY_ID = "DELETE FROM Tour WHERE Tour.idTour = ?";
     private static final String CREATE_ORDER = "INSERT INTO Purchase (idTour, emailUser, OrderStatus) VALUES(?, ?, ?)";
     private static final String SELECT_ORDER_BY_EMAIL = "SELECT idOrder, emailUser, OrderStatus, Tour.idTour, Country, Cost, Discount, isHot, Date , TourType.Name FROM Purchase JOIN Tour ON Purchase.idTour=Tour.idTour JOIN TourType on Tour.idTourType=TourType.idTourType WHERE emailUser=?";
     private static final String SELECT_ORDER_BY_ID = "SELECT idOrder, emailUser, OrderStatus, Tour.idTour, Country, Cost, Discount, isHot, Date , TourType.Name FROM Purchase JOIN Tour ON Purchase.idTour=Tour.idTour JOIN TourType on Tour.idTourType=TourType.idTourType WHERE idOrder=?";
     private static final String CHANGE_ORDER_STATUS = "UPDATE Purchase  set OrderStatus=? WHERE idOrder=?";
+    private static final String UPDATE_ORDER = "UPDATE Purchase SET idOrder = ?, idTour = ?, emailUser = ?, OrderStatus = ?";
 
+
+    /**
+     * Find all orders
+     * @return
+     * @throws DAOException
+     */
     @Override
     public List<Order> findAll() throws DAOException {
         List<Order> orders = new ArrayList<>();
@@ -38,33 +44,23 @@ public class OrderDAO extends AbstractDAO<Order>{
             }
         } catch (SQLException e) {
             throw new DAOException(e);
-        } catch (ConnectionPoolException e) {
-            throw new DAOException();
-        } finally {
+        }
+        finally {
             close(statement);
             connectionPool.releaseConnection(connection);
         }
         return orders;
     }
 
-
-    public int delete(int id) throws DAOException, ConnectionPoolException {
-        return 0;
-    }
-    @Override
-    public boolean delete(Order entity) throws DAOException {
-        return false;
-    }
-
+    /**
+     * Create order to data base
+     * @param order
+     * @return
+     * @throws DAOException
+     */
     @Override
     public boolean create(Order order) throws DAOException {
-        ConnectionPool connectionPool;
-        try {
-            connectionPool = ConnectionPool.getConnectionPool();
-        } catch (ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
-
+        ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
         boolean flag;
@@ -93,11 +89,47 @@ public class OrderDAO extends AbstractDAO<Order>{
         return false;
     }
 
+    /**
+     * Update order
+     * @param order
+     * @return
+     * @throws DAOException
+     */
     @Override
-    public int update(Order entity) throws DAOException {
-        return 0;
+    public int update(Order order) throws DAOException {
+        ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
+
+        Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement(UPDATE_ORDER);
+
+            statement.setInt(1, order.getId());
+            statement.setInt(2, order.getTour().getId());
+            statement.setString(3, order.getEmailUser());
+            statement.setString(4, order.getOrderStatus().toString());
+
+            if (statement.executeUpdate() > 0){
+                return statement.executeUpdate();
+            } else{
+                throw new DAOException("Update user failed");
+            }
+
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            close(statement);
+            connectionPool.releaseConnection(connection);
+        }
     }
 
+    /**
+     * Create order from data base
+     * @param resultSet
+     * @return
+     * @throws DAOException
+     */
     @Override
     public Order createEntity(ResultSet resultSet) throws DAOException {
         Order order = new Order();
@@ -133,11 +165,17 @@ public class OrderDAO extends AbstractDAO<Order>{
             order.setOrderStatus(orderStatus);
             order.setTour(tour);
         } catch (SQLException e) {
-            System.out.println(e);
+            throw new DAOException(e);
         }
         return order;
     }
 
+    /**
+     * Find order by email
+     * @param email
+     * @return
+     * @throws DAOException
+     */
     public List<Order> findByEmail(String email) throws DAOException{
         List<Order> orders = new ArrayList<>();
         ConnectionPool connectionPool = null;
@@ -154,22 +192,23 @@ public class OrderDAO extends AbstractDAO<Order>{
                 orders.add(order);
             }
         } catch (SQLException e) {
-            throw new DAOException();
-        } catch (ConnectionPoolException e) {
-            throw new DAOException();
+            throw new DAOException(e);
         } finally {
             close(statement);
             connectionPool.releaseConnection(connection);
         }
         return orders;
     }
+
+    /**
+     * Change order status
+     * @param order
+     * @param orderStatus
+     * @return
+     * @throws DAOException
+     */
     public int changeOrderStatus(Order order,  OrderStatus orderStatus) throws DAOException{
-        ConnectionPool connectionPool = null;
-        try {
-            connectionPool = ConnectionPool.getConnectionPool();
-        } catch (ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
+        ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
 
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
@@ -190,14 +229,15 @@ public class OrderDAO extends AbstractDAO<Order>{
         }
     }
 
+    /**
+     * Select order by id
+     * @param id
+     * @return
+     * @throws DAOException
+     */
     public Order selectByIdOrder(int id) throws DAOException{
         Order order = null;
-        ConnectionPool connectionPool = null;
-        try {
-            connectionPool = ConnectionPool.getConnectionPool();
-        } catch (ConnectionPoolException e) {
-            throw new DAOException(e);
-        }
+        ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
         try {
@@ -212,9 +252,7 @@ public class OrderDAO extends AbstractDAO<Order>{
         } catch (SQLException e) {
             throw  new DAOException(e);
         } finally {
-
             close(statement);
-
             connectionPool.releaseConnection(connection);
         }
         return order;

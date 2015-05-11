@@ -15,12 +15,41 @@ public abstract class AbstractDAO<T extends Entity> {
     private static final Logger LOG = Logger.getLogger(AbstractDAO.class);
     protected Connection connection;
 
+    /**
+     * Find all entities
+     * @return
+     * @throws DAOException
+     */
     public abstract List<T> findAll() throws DAOException;
-    public abstract boolean delete(T entity) throws DAOException;
+
+    /**
+     * Create entity to data base
+     * @param entity
+     * @return
+     * @throws DAOException
+     */
     public abstract boolean create(T entity) throws DAOException;
+
+    /**
+     * Update entity
+     * @param entity
+     * @return
+     * @throws DAOException
+     */
     public abstract int update(T entity) throws DAOException;
+
+    /**
+     * Create Entity from data base
+     * @param resultSet
+     * @return
+     * @throws DAOException
+     */
     public abstract T createEntity(ResultSet resultSet) throws DAOException;
 
+    /**
+     * Close statement
+     * @param st
+     */
     public void close(Statement st) {
         try {
             if (st != null) {

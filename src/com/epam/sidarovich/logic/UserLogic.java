@@ -1,15 +1,11 @@
 package com.epam.sidarovich.logic;
 
-import com.epam.sidarovich.dao.TourDAO;
 import com.epam.sidarovich.dao.UserDAO;
-import com.epam.sidarovich.entity.Tour;
 import com.epam.sidarovich.entity.User;
 import com.epam.sidarovich.exception.DAOException;
 import com.epam.sidarovich.exception.LogicException;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
@@ -17,6 +13,13 @@ import java.util.regex.Pattern;
  */
 public class UserLogic {
 
+    /**
+     * Create user
+     * @param email
+     * @param password
+     * @param name
+     * @throws LogicException
+     */
     public void createUser(String email, String password, String name) throws LogicException{
         User user = new User(name, false, false, email, password,0);
         UserDAO userDAO = new UserDAO();
@@ -26,6 +29,12 @@ public class UserLogic {
             throw new LogicException();
         }
     }
+
+    /**
+     * View all Users
+     * @return
+     * @throws LogicException
+     */
     public List<User> viewAllUsers() throws LogicException{
         UserDAO userDAO = new UserDAO();
         List<User> users;
@@ -38,15 +47,25 @@ public class UserLogic {
         return users;
     }
 
+    /**
+     * Delete user
+     * @param email
+     * @throws LogicException
+     */
     public void deleteUser(String email) throws LogicException{
         UserDAO userDAO = new UserDAO();
         try {
-            userDAO.delete(email);
+            userDAO.deleteUserByEmail(email);
         } catch (DAOException e) {
             throw new LogicException(e);
         }
     }
 
+    /**
+     * Make user regular
+     * @param email
+     * @throws LogicException
+     */
     public void makeRegular(String email) throws LogicException{
         UserDAO userDAO = new UserDAO();
         try {
@@ -56,6 +75,12 @@ public class UserLogic {
         }
     }
 
+    /**
+     * Update user discount
+     * @param email
+     * @param discount
+     * @throws LogicException
+     */
     public void updateUserDiscount(String email, int discount) throws LogicException{
         UserDAO userDAO = new UserDAO();
         try {
@@ -64,6 +89,13 @@ public class UserLogic {
             throw new LogicException(e);
         }
     }
+
+    /**
+     * Find User by Email
+     * @param email
+     * @return
+     * @throws LogicException
+     */
     public User findUserByEmail(String email)throws LogicException{
         UserDAO userDAO = new UserDAO();
         User user;
@@ -74,7 +106,6 @@ public class UserLogic {
         }
         return user;
     }
-
 
     }
 

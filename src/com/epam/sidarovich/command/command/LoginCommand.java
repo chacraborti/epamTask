@@ -2,7 +2,7 @@ package com.epam.sidarovich.command.command;
 
 
 
-import com.epam.sidarovich.command.ConfigurationManager;
+import com.epam.sidarovich.manager.*;
 import com.epam.sidarovich.entity.Tour;
 import com.epam.sidarovich.entity.User;
 import com.epam.sidarovich.exception.CommandException;
@@ -10,7 +10,6 @@ import com.epam.sidarovich.exception.LogicException;
 import com.epam.sidarovich.logic.LoginLogic;
 import com.epam.sidarovich.logic.TourLogic;
 import com.epam.sidarovich.logic.UserLogic;
-import manager.MessageManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +24,12 @@ public class LoginCommand implements ActionCommand {
     public static final String LOGIN_PARAMETER = "login";
     public static final String PASSWORD_PARAMETER = "password";
 
+    /**
+     * User login^ success if user exist, go to tour page, else show error login message
+     * @param request
+     * @return
+     * @throws CommandException
+     */
     @Override
     public String execute(HttpServletRequest request)  throws CommandException{
         String page=null;

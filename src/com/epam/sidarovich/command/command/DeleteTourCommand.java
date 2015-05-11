@@ -1,12 +1,10 @@
 package com.epam.sidarovich.command.command;
 
-import com.epam.sidarovich.command.ConfigurationManager;
+import com.epam.sidarovich.manager.*;
 import com.epam.sidarovich.entity.Tour;
-import com.epam.sidarovich.entity.User;
 import com.epam.sidarovich.exception.CommandException;
 import com.epam.sidarovich.exception.LogicException;
 import com.epam.sidarovich.logic.TourLogic;
-import com.epam.sidarovich.logic.UserLogic;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
@@ -16,6 +14,12 @@ import java.util.List;
  * Created by ilona on 08.05.15.
  */
 public class DeleteTourCommand implements ActionCommand {
+    /**
+     * Delete tour, return tours page
+     * @param request
+     * @return
+     * @throws CommandException
+     */
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         TourLogic tourLogic = new TourLogic();

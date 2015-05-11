@@ -18,6 +18,15 @@ public class EncodingFilter implements Filter {
     public void init(FilterConfig fConfig) throws ServletException {
         code = fConfig.getInitParameter("encoding");
     }
+
+    /**
+     * Filter request encoding
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         String codeRequest = request.getCharacterEncoding();
         if (code != null && !code.equalsIgnoreCase(codeRequest)) {
