@@ -13,7 +13,7 @@
     </head>
     <body>
     <c:import url="header.jsp" />
-    <div ><h3 class="pagename"><fmt:message key="tours" /></h3></div>
+    <div ><h2 class="pagename"><fmt:message key="tours" /></h2></div>
         <c:forEach items="${tours}" var="element" >
             <div class="content-wrapper">
                 <div class="content-card">

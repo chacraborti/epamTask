@@ -9,13 +9,16 @@ public class User extends Entity {
     private Boolean isRegular;
     private String email;
     private String password;
+    private int discount;
 
-    public User(String name, Boolean isAdmin, Boolean isRegular, String email, String password) {
+
+    public User(String name, Boolean isAdmin, Boolean isRegular, String email, String password, int discount) {
         this.name = name;
         this.isAdmin = isAdmin;
         this.isRegular = isRegular;
         this.email = email;
         this.password = password;
+        this.discount = discount;
     }
 
     public User() {
@@ -61,6 +64,14 @@ public class User extends Entity {
         this.password = password;
     }
 
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -68,7 +79,8 @@ public class User extends Entity {
                 ", isAdmin=" + isAdmin +
                 ", isRegular=" + isRegular +
                 ", email='" + email + '\'' +
-                ", password=" + password +
+                ", password='" + password + '\'' +
+                ", discount=" + discount +
                 '}';
     }
 
@@ -79,6 +91,7 @@ public class User extends Entity {
 
         User user = (User) o;
 
+        if (discount != user.discount) return false;
         if (!email.equals(user.email)) return false;
         if (!isAdmin.equals(user.isAdmin)) return false;
         if (!isRegular.equals(user.isRegular)) return false;
@@ -95,6 +108,7 @@ public class User extends Entity {
         result = 31 * result + isRegular.hashCode();
         result = 31 * result + email.hashCode();
         result = 31 * result + password.hashCode();
+        result = 31 * result + discount;
         return result;
     }
 }

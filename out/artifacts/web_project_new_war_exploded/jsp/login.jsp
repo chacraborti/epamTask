@@ -32,6 +32,7 @@
                     ${wrongAction} <br/>
                     ${nullPage} <br/>
                     ${fillFormError} <br/>
+                    ${registrationSuccess} <br/>
                 <button type="submit" class="login login-submit"><fmt:message key="log_in" /></button>
             </form>
             <p><fmt:message key="or"/></p>

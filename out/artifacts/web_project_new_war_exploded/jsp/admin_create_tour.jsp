@@ -28,9 +28,9 @@
                         <input type="hidden" name="command" value="submit_create_tour"  />
 
                         <fmt:message key="country" />
-                        <input name="country"  type="text" /><br/>
+                        <input name="country"  type="text" required /><br/>
                         <fmt:message key="date" />
-                        <input name="date"  type="date" /><br/>
+                        <input name="date"  type="date" required/><br/>
                         <fmt:message key="tourType" />
                         <select name="tourType">
                             <option value="REST">Rest</option>
@@ -40,7 +40,7 @@
                         <fmt:message key="isHot" />
                         <input type="checkbox" name="isHot" value="isHot"/></br>
                         <fmt:message key="cost" />
-                        <input name="cost" type="number" value="cost"/></br>
+                        <input name="cost" type="number" value="cost" min="1" required/></br>
 
                         <button type="submit" class="login login-submit"><fmt:message key="submit" /></button>
 

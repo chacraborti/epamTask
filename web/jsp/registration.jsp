@@ -15,13 +15,15 @@
     <input type="hidden" name="command" value="submit-signup"  />
     <fmt:message key="mail" /><br/>
 
-    <input name="email"  type="text" value="e-mail"/><br/>
+    <input name="email"  type="email"  placeholder="<fmt:message key="valid_email" />" style="width: 100%; height: 44px;" /><br/>
     <fmt:message key="password" /><br/>
-    <input name="password" type="password" value="password"/>
+    <input name="password" type="password" value="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$" title=<fmt:message key="valid_password" /> />
     <fmt:message key="repite_password" /><br/>
-    <input name="repite-password" type="password" value="password"/>
+    <input name="repite-password" type="password" value="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$" title=<fmt:message key="valid_password" />/>
     <fmt:message key="name" /><br/>
-    <input name="name" type="text" value="name" />
+    <input name="name" type="text" required />
+        ${errorUserExist}
+        ${passwordNotMatch}
         <button type="submit" class="login login-submit"><fmt:message key="submit" /></button>
     </form>
 

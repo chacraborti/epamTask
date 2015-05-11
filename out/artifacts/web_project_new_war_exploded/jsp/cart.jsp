@@ -10,7 +10,7 @@
     </head>
     <body>
     <c:import url="header.jsp" />
-    <div ><h3 class="pagename"><fmt:message key="cart" /></h3></div>
+    <div ><h2 class="pagename"><fmt:message key="cart" /></h2></div>
     <c:forEach items="${orders}" var="element">
         <c:if test="${element.orderStatus != 'CANCELED'}">
         <div class="content-wrapper">

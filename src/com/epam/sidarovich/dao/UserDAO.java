@@ -20,11 +20,11 @@ public class UserDAO extends AbstractDAO<User> {
     private static final String SELECT_ALL_FROM_USERS="SELECT * FROM User";
     private static final String FIND_USER_BY_EMAIL = "SELECT * FROM User WHERE User.Email = ?";
     private static final String DELETE_USER_BY_EMAIL = "DELETE  FROM User WHERE User.Email = ?";
-    private static final String CREATE_USER = "INSERT INTO User ( Name, Role, isRegular, Email, Password) VALUES( ?, ?, ?, ?, md5(?))";
-    private static final String UPDATE_USER = "UPDATE User SET Name = ?, Role = ?, isRegular = ?, Email = ?, Password = ?  WHERE id = ?";
+    private static final String CREATE_USER = "INSERT INTO User ( Name, Role, isRegular, Email, Password, userDiscount) VALUES( ?, ?, ?, ?, md5(?), ?)";
+    private static final String UPDATE_USER = "UPDATE User SET Name = ?, Role = ?, isRegular = ?, Password = ? userDiscount = ? WHERE Email = ?";
     private static final String MAKE_REGULAR_USER = "UPDATE User SET isRegular = 1  WHERE Email = ?";
-    private static final String FIND_USER_BY_EMAIL_ADN_PASSWORD = "SELECT User.Email, User.Password, User.Role, User.Name, User.Email, User.isRegular FROM User WHERE User.Email=? AND User.Password = md5(?)";
-
+    private static final String FIND_USER_BY_EMAIL_ADN_PASSWORD = "SELECT User.Email, User.Password, User.Role, User.Name, User.userDiscount, User.isRegular FROM User WHERE User.Email=? AND User.Password = md5(?)";
+    private static final String UPDATE_USER_DISCOUNT=  "UPDATE User SET userDiscount=? WHERE Email = ?";
 
     @Override
     public List<User> findAll() throws DAOException{
@@ -145,6 +145,7 @@ public class UserDAO extends AbstractDAO<User> {
                 }
                 statement.setString(4, user.getEmail());
                 statement.setString(5, user.getPassword());
+                statement.setInt(6,user.getDiscount());
 
                 if (statement.executeUpdate() > 0){
                     LOG.info(user.getName() + " has been created");
@@ -192,8 +193,9 @@ public class UserDAO extends AbstractDAO<User> {
                     else {
                         statement.setInt(3, 0);
                     }
-                    statement.setString(4, user.getEmail());
-                    statement.setString(5, user.getPassword());
+                    statement.setString(4, user.getPassword());
+                    statement.setInt(5, user.getDiscount());
+                    statement.setString(6, user.getEmail());
 
                     if (statement.executeUpdate() > 0){
                         return statement.executeUpdate();
@@ -216,7 +218,8 @@ public class UserDAO extends AbstractDAO<User> {
         user.setName(resultSet.getString("Name"));
             user.setEmail(resultSet.getString("Email"));
             user.setPassword(resultSet.getString("Password"));
-            Integer isAdmin = resultSet.getInt("Role");
+            user.setDiscount(resultSet.getInt("userDiscount"));
+            int isAdmin = resultSet.getInt("Role");
             switch (isAdmin){
                 case(1):
                 user.setIsAdmin(true);
@@ -226,7 +229,7 @@ public class UserDAO extends AbstractDAO<User> {
                     break;
                 default: throw new DAOException("Wrong 'isAdmin' format");
             }
-            Integer isRegular = resultSet.getInt("isRegular");
+            int isRegular = resultSet.getInt("isRegular");
             switch (isRegular){
                 case(1):
                     user.setIsRegular(true);
@@ -237,6 +240,8 @@ public class UserDAO extends AbstractDAO<User> {
                 default: throw new DAOException("Wrong 'isRegular' format");
 
             }
+
+
         }catch (SQLException e){
             throw new DAOException(e);
         }
@@ -268,6 +273,34 @@ public class UserDAO extends AbstractDAO<User> {
             throw new DAOException(e);
         } finally {
                 close(statement);
+            connectionPool.releaseConnection(connection);
+        }
+    }
+
+    public int updateUserDiscount (String email, int discount) throws DAOException {
+        ConnectionPool connectionPool ;
+        try {
+            connectionPool = ConnectionPool.getConnectionPool();
+        } catch (ConnectionPoolException e) {
+            throw new DAOException(e);
+        }
+        Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = null;
+
+        try {
+            statement = connection.prepareStatement(UPDATE_USER_DISCOUNT);
+            statement.setInt(1, discount);
+            statement.setString(2, email);
+            statement.executeUpdate();
+            if (statement.executeUpdate() > 0){
+                return statement.executeUpdate();
+            } else{
+                throw new DAOException("Make regular user failed");
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            close(statement);
             connectionPool.releaseConnection(connection);
         }
     }

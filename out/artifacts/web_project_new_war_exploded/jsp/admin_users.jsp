@@ -27,31 +27,55 @@
                 <td><fmt:message key="email" /></td>
                 <td></td>
                 <td></td>
+                <td><fmt:message key="discount" /></td>
             </tr>
             <c:forEach items="${users}" var="element">
                 <c:if test="${!element.isAdmin}">
                 <tr>
                     <td>${element.name}</td>
-                    <td> <c:if test="${element.isRegular}">
+                    <td>
+                        <c:choose>
+                            <c:when test="${element.isRegular}">
                         <img src=img/check-point.png>
-                    </c:if></td>
-                    <td>${element.email}</td>
-                    <td>
-                    <form name="deleteButton" method="POST" action="controller">
-                        <input type="hidden" name="command" value="delete_user" />
-                        <input type="hidden" name="userEmail" value="${element.email}">
-                        <input type="submit" value="<fmt:message key="delete" />"  class="button"/>
-                    </form>
-                    </td>
-
-                    <td>
-                <c:if test="${!element.isRegular}">
+                    </c:when>
+                            <c:otherwise>
                         <form name="regularButton" method="POST" action="controller">
                             <input type="hidden" name="command" value="make_regular" />
                             <input type="hidden" name="userEmail" value="${element.email}">
                             <input type="submit" value="<fmt:message key="make_regular" />"  class="button"/>
                         </form>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td>${element.email}</td>
+                    <td>
+                    <form name="deleteButton" method="POST" action="controller">
+                        <input type="hidden" name="command" value="delete_user" />
+                        <input type="hidden" name="userEmail" value="${element.email}">
+                        <button type="submit" class="login login-submit" class="button"><fmt:message key="delete"  /></button>
+                        <%--<script>--%>
+                            <%--function submitDeleteFunction() {--%>
+                                <%--confirm("<fmt:message key="submit_delete"  />");--%>
+                            <%--}--%>
+                        <%--</script>--%>
+                    </form>
+                    </td>
+
+                    <td>
+                <c:if test="${element.isRegular}">
+                    <form name="discount" method="POST" action="controller">
+                        <input type="hidden" name="command" value="user_discount" />
+                        <input type="hidden" name="userEmail" value="${element.email}">
+
+                        <input name="discount" type="number" value="" style="width: 200px;" min="1"/>
+                        <input type="submit" value="<fmt:message key="set_discount" />"  class="button"/>
+                    </form>
                     </c:if>
+                    </td>
+                    <td>
+                <c:if test="${element.discount>0}">
+                    ${element.discount}
+                  </c:if>
                     </td>
                 </tr>
                 </c:if>

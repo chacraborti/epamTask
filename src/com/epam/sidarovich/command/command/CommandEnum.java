@@ -31,7 +31,7 @@ public enum CommandEnum {
     },
     SUBMIT_SIGNUP{
         {
-            this.command = new SubmitSignUpCommand();
+            this.command = new SignUpCommand();
         }
     },
     ORDER{
@@ -51,12 +51,12 @@ public enum CommandEnum {
     },
     CREATE_TOUR{
         {
-            this.command = new CreateTourCommand();
+            this.command = new GoToCreateTourPageCommand();
         }
     },
     SUBMIT_CREATE_TOUR{
         {
-            this.command = new SubmitCreateTourCommand();
+            this.command = new CreateTourCommand();
         }
     },
     DELETE_TOUR{
@@ -79,6 +79,11 @@ public enum CommandEnum {
     PAY_ORDER{
         {
             this.command = new PayOrderCommand();
+        }
+    },
+    USER_DISCOUNT{
+        {
+            this.command = new SetUserDiscountCommand();
         }
     };
 

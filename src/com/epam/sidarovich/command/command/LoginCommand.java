@@ -42,6 +42,7 @@ public class LoginCommand implements ActionCommand {
                         List<Tour> tours = null;
                         try {
                             tours = tourLogic.viewAllTours();
+                            System.out.println(tours);
                         } catch (LogicException e) {
                             throw new CommandException(e);
                         }
