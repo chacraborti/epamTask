@@ -7,16 +7,16 @@
     <html>
     <head>
         <link rel="stylesheet" href="css/new.css" type="text/css" />
-        <title>Parsed table</title>
+        <title><fmt:message key="tours" /></title>
     </head>
     <body>
     <c:import url="header.jsp" />
-
+    <div ><h2 class="pagename"><fmt:message key="tours" /></h2></div>
         <div class="working">
             <div class="column">
                 <form name="viewUsersButton" method="POST" action="controller">
                     <input type="hidden" name="command" value="view_users" />
-                    <input type="submit" value=<fmt:message key="view_users" />  class="button"/>
+                    <input type="submit" value=<fmt:message key="view_users" />  class="button" />
                 </form>
             </div>
             <div class="login" id="tour">
@@ -33,9 +33,9 @@
                         <input name="date"  type="date" required/><br/>
                         <fmt:message key="tourType" />
                         <select name="tourType">
-                            <option value="REST">Rest</option>
-                            <option value="EXCURSION">Excursion</option>
-                            <option value="SHOPPING">Shopping</option>
+                            <option value="REST"><fmt:message key="rest" /></option>
+                            <option value="EXCURSION"><fmt:message key="excursion" /></option>
+                            <option value="SHOPPING"><fmt:message key="shopping" /></option>
                         </select><br/>
                         <fmt:message key="isHot" />
                         <input type="checkbox" name="isHot" value="isHot"/></br>

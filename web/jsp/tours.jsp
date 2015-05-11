@@ -8,7 +8,7 @@
     <html>
 
     <head>
-        <link rel="stylesheet" href="css/new.css" type="text/css" />
+        <link rel="stylesheet" href="css/style.css" type="text/css" />
         <title><fmt:message key="tours" /></title>
     </head>
     <body>

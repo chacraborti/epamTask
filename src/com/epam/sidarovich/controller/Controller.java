@@ -2,12 +2,12 @@ package com.epam.sidarovich.controller;
 
 
 
-import com.epam.sidarovich.command.command.ActionCommand;
-import com.epam.sidarovich.command.command.ActionFactory;
+import com.epam.sidarovich.command.ActionCommand;
+import com.epam.sidarovich.command.ActionFactory;
 import com.epam.sidarovich.connection.ConnectionPool;
 import com.epam.sidarovich.exception.CommandException;
-import com.epam.sidarovich.exception.ConnectionPoolException;
 import org.apache.log4j.Logger;
+import com.epam.sidarovich.manager.*;
 import org.apache.log4j.xml.DOMConfigurator;
 
 import javax.servlet.RequestDispatcher;
@@ -58,10 +58,7 @@ import java.io.IOException;
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
                 dispatcher.forward(request, response);
             } else {
-//                page = ConfigurationManager.getProperty("path.page.error"); //index
-//                request.getSession().setAttribute("nullPage", MessageManager.getProperty("message.nullpage"));
-//                response.sendRedirect(page);
-                request.getRequestDispatcher("path.page.error").forward(request, response);
+                request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.error")).forward(request, response);
 
             }
         }
@@ -75,8 +72,6 @@ import java.io.IOException;
         connectionPool.shutDownConnections();
 
     }
-
-
-    }
+}
 
 

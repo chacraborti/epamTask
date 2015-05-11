@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:bundle basename="resources.pagecontent" prefix = "header." >
     <html>
     <head>
-        <title>Header</title>
-        <link href="css/new.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
     </head>
 
     <body>
@@ -17,7 +17,9 @@
 
             <div class="section" id="hello">
                 <form name="helloForm" method="POST" action="controller">
+                    <c:if test="${user!=null}">
                     <p><fmt:message key="hello" /> ${user.name}</p>
+                    </c:if>
                 </form>
             </div>
 

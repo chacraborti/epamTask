@@ -6,11 +6,12 @@
 
     <html>
     <head>
-        <link rel="stylesheet" href="css/new.css" type="text/css" />
-        <title>Parsed table</title>
+        <link rel="stylesheet" href="css/style.css" type="text/css" />
+        <title><fmt:message key="users" /></title>
     </head>
     <body>
     <c:import url="header.jsp" />
+    <div ><h2 class="pagename"><fmt:message key="users" /></h2></div>
     <div class="container">
       <div class="column">
           <form name="registrationButton" method="POST" action="controller">
