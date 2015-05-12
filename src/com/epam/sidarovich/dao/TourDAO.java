@@ -26,6 +26,10 @@ public class TourDAO extends AbstractDAO<Tour> {
     private static final String UPDATE_TOUR = "UPDATE Tour SET Date = ?, isHot = ?, idTourType = ?, Cost = ?, Discount = ?, Country = ?  WHERE id = ?";
     private static final String TOUR_TYPE = "SELECT TourType.Name FROM TourType WHERE idTourType = ?";
 
+    /**
+     * @return
+     * @throws DAOException
+     */
     @Override
     public List<Tour> findAll() throws DAOException {
         List<Tour> tours = new ArrayList<>();
@@ -51,6 +55,12 @@ public class TourDAO extends AbstractDAO<Tour> {
         return tours;
     }
 
+    /**
+     * Find tour by id
+     * @param id
+     * @return
+     * @throws DAOException
+     */
     public Tour findTourById(int id) throws DAOException {
         Tour tour = null;
         ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
@@ -75,6 +85,12 @@ public class TourDAO extends AbstractDAO<Tour> {
         return tour;
     }
 
+    /**
+     * Create tour
+     * @param tour
+     * @return
+     * @throws DAOException
+     */
     @Override
     public boolean create(Tour tour) throws DAOException {
         ConnectionPool connectionPool= ConnectionPool.getConnectionPool();
@@ -129,6 +145,12 @@ public class TourDAO extends AbstractDAO<Tour> {
         return false;
     }
 
+    /**
+     * Delete tour by id
+     * @param id
+     * @return
+     * @throws DAOException
+     */
     public int deleteTourById(int id) throws DAOException{
         ConnectionPool connectionPool  = ConnectionPool.getConnectionPool();
 
@@ -152,6 +174,13 @@ public class TourDAO extends AbstractDAO<Tour> {
             connectionPool.releaseConnection(connection);
         }
     }
+
+    /**
+     * Update tour
+     * @param tour
+     * @return
+     * @throws DAOException
+     */
     @Override
     public int update(Tour tour) throws DAOException {
         ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
@@ -200,6 +229,12 @@ public class TourDAO extends AbstractDAO<Tour> {
             }
     }
 
+    /**
+     * Create tour from database
+     * @param resultSet
+     * @return
+     * @throws DAOException
+     */
     @Override
     public Tour createEntity(ResultSet resultSet) throws DAOException {
         Tour tour = new Tour();
@@ -232,6 +267,10 @@ public class TourDAO extends AbstractDAO<Tour> {
         return tour;
     }
 
+    /**
+     * Close statement
+     * @param st
+     */
     @Override
     public void close(Statement st) {
         super.close(st);

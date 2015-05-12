@@ -6,11 +6,12 @@ import java.util.regex.Pattern;
 /**
  * Created by ilona on 11.05.15.
  */
-public class Validator {
+public class EntranceValidator {
     public static final String EMAIL_PATTERN="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
     public static final String LETTER_UPPER_CASE="[A-Z]";
     public static final String LETTER_LOWER_CASE="[a-z]";
     public static final String NUMBER="\\d";
+    public static final int PASSWORD_LENGTH=8;
 
     /**
      * Validate email
@@ -44,7 +45,7 @@ public class Validator {
 
         if (pass1.equals(pass2)) {
 
-            if (pass1.length() < 8) {
+            if (pass1.length() < PASSWORD_LENGTH) {
                 return false;
             }
             if (!patternUpperCase.matcher(pass1).find()) {

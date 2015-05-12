@@ -58,7 +58,8 @@ import java.io.IOException;
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
                 dispatcher.forward(request, response);
             } else {
-                request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.error")).forward(request, response);
+                ConfigurationManager configurationManager=new ConfigurationManager();
+                request.getRequestDispatcher(configurationManager.getProperty("path.page.error")).forward(request, response);
 
             }
         }

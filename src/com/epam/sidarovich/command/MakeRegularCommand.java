@@ -49,6 +49,7 @@ public class MakeRegularCommand implements ActionCommand{
             throw new CommandException(e);
         }
         request.setAttribute("users", users);
-        return ConfigurationManager.getProperty("path.page.admin_users");
+        ConfigurationManager configurationManager=new ConfigurationManager();
+        return configurationManager.getProperty("path.page.admin_users");
     }
 }

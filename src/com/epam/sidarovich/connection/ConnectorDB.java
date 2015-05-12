@@ -1,7 +1,6 @@
 package com.epam.sidarovich.connection;
 
 import com.epam.sidarovich.exception.ConnectionPoolException;
-import com.epam.sidarovich.exception.DAOException;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

@@ -39,6 +39,7 @@ public class DeleteTourCommand implements ActionCommand {
         }
         Collections.reverse(tours);
         request.setAttribute("tours", tours);
-        return ConfigurationManager.getProperty("path.page.tours");
+        ConfigurationManager configurationManager=new ConfigurationManager();
+        return configurationManager.getProperty("path.page.tours");
     }
 }

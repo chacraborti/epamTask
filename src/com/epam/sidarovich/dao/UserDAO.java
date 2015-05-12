@@ -27,6 +27,7 @@ public class UserDAO extends AbstractDAO<User> {
     private static final String UPDATE_USER_DISCOUNT=  "UPDATE User SET userDiscount=? WHERE Email = ?";
 
     /**
+     * Find all from user
      * @return
      * @throws DAOException
      */
@@ -55,6 +56,7 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     /**
+     * Find user by email
      * @param email
      * @return
      * @throws DAOException
@@ -83,6 +85,7 @@ public class UserDAO extends AbstractDAO<User> {
 
 
     /**
+     * Delete user by email
      * @param email
      * @return
      * @throws DAOException
@@ -114,6 +117,7 @@ public class UserDAO extends AbstractDAO<User> {
 
 
     /**
+     * Create user to database
      * @param user
      * @return
      * @throws DAOException
@@ -164,6 +168,7 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     /**
+     * Update user
      * @param user
      * @return
      * @throws DAOException
@@ -213,6 +218,7 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     /**
+     * Create user from database
      * @param resultSet
      * @return
      * @throws DAOException
@@ -255,6 +261,7 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     /**
+     * Update user as regular
      * @param email
      * @return
      * @throws DAOException
@@ -284,6 +291,7 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     /**
+     * Update user discount
      * @param email
      * @param discount
      * @return
@@ -314,6 +322,7 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     /**
+     * Find user by email and password
      * @param email
      * @param password
      * @return

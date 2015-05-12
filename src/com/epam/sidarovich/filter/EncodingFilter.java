@@ -35,6 +35,10 @@ public class EncodingFilter implements Filter {
         }
         chain.doFilter(request, response);
     }
+
+    /**
+     * Destroy
+     */
     public void destroy() {
         code = null;
     }

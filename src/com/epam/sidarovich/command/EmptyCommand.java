@@ -15,6 +15,7 @@ public class EmptyCommand implements ActionCommand {
      */
     @Override
     public String execute(HttpServletRequest request) {
-        return ConfigurationManager.getProperty("path.page.login");
+        ConfigurationManager configurationManager=new ConfigurationManager();
+        return configurationManager.getProperty("path.page.login");
     }
 }

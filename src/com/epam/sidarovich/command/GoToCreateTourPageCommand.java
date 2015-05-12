@@ -17,6 +17,7 @@ public class GoToCreateTourPageCommand implements ActionCommand {
      */
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
-        return ConfigurationManager.getProperty("path.page.admin_create_tour");
+        ConfigurationManager configurationManager=new ConfigurationManager();
+        return configurationManager.getProperty("path.page.admin_create_tour");
     }
 }

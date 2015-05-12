@@ -5,7 +5,7 @@ import com.epam.sidarovich.entity.User;
 import com.epam.sidarovich.exception.CommandException;
 import com.epam.sidarovich.exception.LogicException;
 import com.epam.sidarovich.logic.UserLogic;
-import com.epam.sidarovich.validator.Validator;
+import com.epam.sidarovich.validator.EntranceValidator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,7 +29,8 @@ public class SignUpCommand implements ActionCommand {
         String name = request.getParameter("name");
         MessageManager messageManager = new MessageManager();
         String page=null;
-        Validator validator=new Validator();
+        EntranceValidator entranceValidator =new EntranceValidator();
+        ConfigurationManager configurationManager=new ConfigurationManager();
         User user;
         try {
             user=userLogic.findUserByEmail(email);
@@ -37,21 +38,22 @@ public class SignUpCommand implements ActionCommand {
             throw new CommandException(e);
         }
         if(user==null){
-            if(validator.isValidEmailAddress(email) && validator.isValidPassword(password,password2)){
+            if(entranceValidator.isValidEmailAddress(email) && entranceValidator.isValidPassword(password,password2)){
                 try {
                     userLogic.createUser(email, password, name);
                 } catch (LogicException e) {
                     throw new CommandException(e);
                 }
                 request.setAttribute("registrationSuccess", messageManager.getProperty("message.registrationSuccess"));
-                page=ConfigurationManager.getProperty("path.page.login");
+                page=configurationManager.getProperty("path.page.login");
             }
         }else{
             if(password!=password2){
                 request.setAttribute("passwordNotMatch", messageManager.getProperty("message.passwordNotMatch"));
             }
             request.setAttribute("errorUserExist", messageManager.getProperty("message.userexist"));
-            page = ConfigurationManager.getProperty("path.page.registration");
+
+            page = configurationManager.getProperty("path.page.registration");
 
         }
         return page;
