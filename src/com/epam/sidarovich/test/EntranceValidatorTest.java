@@ -35,18 +35,18 @@ public class EntranceValidatorTest {
         Pattern pattern = Pattern.compile(EntranceValidator.LETTER_UPPER_CASE);
         EntranceValidator validator = new EntranceValidator();
         String password = "d1234567";
-        String password2 = "d1234567";
+        String password2 = password;
         boolean expected = pattern.matcher(password).find();
         boolean actual = validator.isValidPassword(password, password2);
         Assert.assertEquals(expected,actual);
     }
     @Test
     public void isValidPasswordTestLessThanEightCharacters(){
-        int length = EntranceValidator.PASSWORD_LENGTH;
+        int passwordLength = EntranceValidator.PASSWORD_LENGTH;
         EntranceValidator validator = new EntranceValidator();
         String password = "Ad12345";
-        String password2="Ad12345";
-        boolean expected = (password.length()==8);
+        String password2= password;
+        boolean expected = (password.length()==passwordLength);
         boolean actual = validator.isValidPassword(password,password2);
         Assert.assertEquals(expected,actual);
     }

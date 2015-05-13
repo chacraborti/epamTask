@@ -5,8 +5,8 @@ package com.epam.sidarovich.entity;
  */
 public class User extends Entity {
     private String name;
-    private Boolean isAdmin;
-    private Boolean isRegular;
+    private boolean isAdmin;
+    private boolean isRegular;
     private String email;
     private String password;
     private int discount;
@@ -92,9 +92,9 @@ public class User extends Entity {
         User user = (User) o;
 
         if (discount != user.discount) return false;
+        if (isAdmin != user.isAdmin) return false;
+        if (isRegular != user.isRegular) return false;
         if (!email.equals(user.email)) return false;
-        if (!isAdmin.equals(user.isAdmin)) return false;
-        if (!isRegular.equals(user.isRegular)) return false;
         if (!name.equals(user.name)) return false;
         if (!password.equals(user.password)) return false;
 
@@ -104,8 +104,8 @@ public class User extends Entity {
     @Override
     public int hashCode() {
         int result = name.hashCode();
-        result = 31 * result + isAdmin.hashCode();
-        result = 31 * result + isRegular.hashCode();
+        result = 31 * result + (isAdmin ? 1 : 0);
+        result = 31 * result + (isRegular ? 1 : 0);
         result = 31 * result + email.hashCode();
         result = 31 * result + password.hashCode();
         result = 31 * result + discount;

@@ -5,7 +5,7 @@
 <fmt:bundle basename="resources.pagecontent" prefix = "label." >
     <html>
     <head>
-        <title><fmt:message key="login" /></title>
+        <title><fmt:message key="travel" /> </title>
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>

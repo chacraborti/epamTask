@@ -35,7 +35,7 @@ public class LoginCommand implements ActionCommand {
         String page=null;
         String login = request.getParameter(LOGIN_PARAMETER);
         String pass = request.getParameter(PASSWORD_PARAMETER);
-        ConfigurationManager configurationManager=new ConfigurationManager();
+        PathPageManager pathPageManager =new PathPageManager();
         if (login != null ){
             User user = null;
             try {
@@ -53,7 +53,7 @@ public class LoginCommand implements ActionCommand {
                             throw new CommandException(e);
                         }
                         request.setAttribute("tours", tours);
-                        page = configurationManager.getProperty("path.page.tours");
+                        page = pathPageManager.getProperty("path.page.tours");
                     }
                     else{
                         UserLogic userLogic = new UserLogic();
@@ -64,12 +64,12 @@ public class LoginCommand implements ActionCommand {
                             throw new CommandException(e);
                         }
                         request.setAttribute("users", users);
-                        page = configurationManager.getProperty("path.page.admin_users");
+                        page = pathPageManager.getProperty("path.page.admin_users");
                     }
                 }
                 else{
                     MessageManager messageManager = new MessageManager();
-                    page = configurationManager.getProperty("path.page.index");
+                    page = pathPageManager.getProperty("path.page.index");
                     request.setAttribute("errorLoginPassMessage", messageManager.getProperty("message.loginerror"));
                 }
             } catch (LogicException e) {

@@ -44,7 +44,7 @@ public abstract class AbstractDAO<T extends Entity> {
      * @return
      * @throws DAOException
      */
-    public abstract T createEntity(ResultSet resultSet) throws DAOException;
+    protected abstract T createEntity(ResultSet resultSet) throws DAOException;
 
     /**
      * Close statement

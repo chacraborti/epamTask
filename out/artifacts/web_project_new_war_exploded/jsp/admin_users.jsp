@@ -53,12 +53,12 @@
                     <form name="deleteButton" method="POST" action="controller">
                         <input type="hidden" name="command" value="delete_user" />
                         <input type="hidden" name="userEmail" value="${element.email}">
-                        <button type="submit" class="login login-submit" class="button"><fmt:message key="delete"  /></button>
-                        <%--<script>--%>
-                            <%--function submitDeleteFunction() {--%>
-                                <%--confirm("<fmt:message key="submit_delete"  />");--%>
-                            <%--}--%>
-                        <%--</script>--%>
+                        <button type="submit" class="login login-submit" class="button" onclick="submitDeleteFunction()"><fmt:message key="delete"  /></button>
+                        <script>
+                            function submitDeleteFunction() {
+                                confirm("<fmt:message key="submit_delete"  />");
+                            }
+                        </script>
                     </form>
                     </td>
 

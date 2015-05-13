@@ -49,8 +49,8 @@ public class CancelOrderCommand implements ActionCommand {
         }
         Collections.reverse(orderList);
         session.setAttribute("orders",orderList);
-        ConfigurationManager configurationManager=new ConfigurationManager();
-        return configurationManager.getProperty("path.page.cart");
+        PathPageManager pathPageManager =new PathPageManager();
+        return pathPageManager.getProperty("path.page.cart");
 
     }
 }

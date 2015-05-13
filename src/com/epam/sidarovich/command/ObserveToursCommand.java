@@ -28,7 +28,7 @@ public class ObserveToursCommand implements ActionCommand{
             throw new CommandException(e);
         }
         session.setAttribute("tours", tours);
-        ConfigurationManager configurationManager=new ConfigurationManager();
-        return configurationManager.getProperty("path.page.tours");
+        PathPageManager pathPageManager =new PathPageManager();
+        return pathPageManager.getProperty("path.page.tours");
         }
     }

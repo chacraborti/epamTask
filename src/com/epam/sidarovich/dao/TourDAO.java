@@ -102,7 +102,7 @@ public class TourDAO extends AbstractDAO<Tour> {
                 GregorianCalendar calendar = tour.getDate();
                 Date date = new Date(calendar.getTimeInMillis());
                 statement.setDate(1, date);
-                Boolean isHot = tour.getIsHot();
+                boolean isHot = tour.getIsHot();
                 if (isHot) {
                     statement.setInt(2, 1);
                 } else {
@@ -194,7 +194,7 @@ public class TourDAO extends AbstractDAO<Tour> {
                 GregorianCalendar calendar = tour.getDate();
                 Date date = new Date(calendar.getTimeInMillis());
                 statement.setDate(2, date);
-                Boolean isHot = tour.getIsHot();
+                boolean isHot = tour.getIsHot();
                 if (isHot) {
                     statement.setInt(3, 1);
                 } else {
@@ -236,7 +236,7 @@ public class TourDAO extends AbstractDAO<Tour> {
      * @throws DAOException
      */
     @Override
-    public Tour createEntity(ResultSet resultSet) throws DAOException {
+    protected Tour createEntity(ResultSet resultSet) throws DAOException {
         Tour tour = new Tour();
         try {
             tour.setId(resultSet.getInt("idTour"));
@@ -266,14 +266,4 @@ public class TourDAO extends AbstractDAO<Tour> {
         }
         return tour;
     }
-
-    /**
-     * Close statement
-     * @param st
-     */
-    @Override
-    public void close(Statement st) {
-        super.close(st);
-    }
-
 }

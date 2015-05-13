@@ -30,7 +30,7 @@ public class SignUpCommand implements ActionCommand {
         MessageManager messageManager = new MessageManager();
         String page=null;
         EntranceValidator entranceValidator =new EntranceValidator();
-        ConfigurationManager configurationManager=new ConfigurationManager();
+        PathPageManager pathPageManager =new PathPageManager();
         User user;
         try {
             user=userLogic.findUserByEmail(email);
@@ -45,7 +45,7 @@ public class SignUpCommand implements ActionCommand {
                     throw new CommandException(e);
                 }
                 request.setAttribute("registrationSuccess", messageManager.getProperty("message.registrationSuccess"));
-                page=configurationManager.getProperty("path.page.login");
+                page= pathPageManager.getProperty("path.page.login");
             }
         }else{
             if(password!=password2){
@@ -53,7 +53,7 @@ public class SignUpCommand implements ActionCommand {
             }
             request.setAttribute("errorUserExist", messageManager.getProperty("message.userexist"));
 
-            page = configurationManager.getProperty("path.page.registration");
+            page = pathPageManager.getProperty("path.page.registration");
 
         }
         return page;

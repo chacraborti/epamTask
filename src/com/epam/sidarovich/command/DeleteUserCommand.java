@@ -50,7 +50,7 @@ public class DeleteUserCommand implements ActionCommand {
             throw new CommandException(e);
         }
         request.setAttribute("users", users);
-        ConfigurationManager configurationManager=new ConfigurationManager();
-        return configurationManager.getProperty("path.page.admin_users");
+        PathPageManager pathPageManager =new PathPageManager();
+        return pathPageManager.getProperty("path.page.admin_users");
     }
 }

@@ -193,9 +193,6 @@ p{
     margin-top: 50px;
     margin-left: 10%;
 }
-.content-wrapper:hover{
-    background-color: #d9d9d9;
-}
 #country{
     font-size: 16pt;
     font-weight: bold;

@@ -2,7 +2,6 @@ package com.epam.sidarovich.dao;
 
 import com.epam.sidarovich.connection.ConnectionPool;
 import com.epam.sidarovich.entity.User;
-import com.epam.sidarovich.exception.ConnectionPoolException;
 import com.epam.sidarovich.exception.DAOException;
 import org.apache.log4j.Logger;
 
@@ -133,14 +132,14 @@ public class UserDAO extends AbstractDAO<User> {
                 statement = connection.prepareStatement(CREATE_USER);
 
                 statement.setString(1, user.getName());
-                Boolean isAdmin = user.getIsAdmin();
+                boolean isAdmin = user.getIsAdmin();
                 if (isAdmin){
                     statement.setInt(2, 1);
                 }
                 else {
                     statement.setInt(2, 0);
                 }
-                Boolean isRegular = user.getIsRegular();
+                boolean isRegular = user.getIsRegular();
                 if (isRegular){
                     statement.setInt(3, 1);
                 }
@@ -185,14 +184,14 @@ public class UserDAO extends AbstractDAO<User> {
                     statement = connection.prepareStatement(UPDATE_USER);
 
                     statement.setString(1, user.getName());
-                    Boolean isAdmin = user.getIsAdmin();
+                    boolean isAdmin = user.getIsAdmin();
                     if (isAdmin){
                     statement.setInt(2, 1);
                     }
                     else {
                         statement.setInt(2, 0);
                     }
-                    Boolean isRegular = user.getIsRegular();
+                    boolean isRegular = user.getIsRegular();
                     if (isRegular){
                         statement.setInt(3, 1);
                     }
@@ -224,7 +223,7 @@ public class UserDAO extends AbstractDAO<User> {
      * @throws DAOException
      */
     @Override
-     public User createEntity(ResultSet resultSet) throws DAOException{
+     protected User createEntity(ResultSet resultSet) throws DAOException{
         User user = new User();
         try{
         user.setName(resultSet.getString("Name"));

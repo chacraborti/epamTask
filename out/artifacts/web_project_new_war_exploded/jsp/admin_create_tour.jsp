@@ -30,7 +30,7 @@
                         <fmt:message key="country" />
                         <input name="country"  type="text" required /><br/>
                         <fmt:message key="date" />
-                        <input name="date"  type="date" required/><br/>
+                        <input name="date"  type="date" /><br/>
                         <fmt:message key="tourType" />
                         <select name="tourType">
                             <option value="REST"><fmt:message key="rest" /></option>

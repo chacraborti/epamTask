@@ -5,9 +5,9 @@ import java.util.ResourceBundle;
 /**
  * Created by ilona on 25.03.15.
  */
-public class ConfigurationManager {
-    private ResourceBundle resourceBundle = ResourceBundle.getBundle("resources.config");
-    public ConfigurationManager() { }
+public class PathPageManager {
+    private ResourceBundle resourceBundle = ResourceBundle.getBundle("resources.path_page");
+    public PathPageManager() { }
 
     /**
      * Get information from configuration file

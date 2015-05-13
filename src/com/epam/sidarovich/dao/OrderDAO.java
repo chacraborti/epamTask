@@ -131,7 +131,7 @@ public class OrderDAO extends AbstractDAO<Order>{
      * @throws DAOException
      */
     @Override
-    public Order createEntity(ResultSet resultSet) throws DAOException {
+    protected Order createEntity(ResultSet resultSet) throws DAOException {
         Order order = new Order();
         Tour tour = new Tour();
         try {
@@ -143,7 +143,7 @@ public class OrderDAO extends AbstractDAO<Order>{
             GregorianCalendar calendar = new GregorianCalendar();
             calendar.setTime(date);
             tour.setDate(calendar);
-            Integer isHot = resultSet.getInt("isHot");
+            int isHot = resultSet.getInt("isHot");
             switch (isHot) {
                 case (1):
                     tour.setHot(true);

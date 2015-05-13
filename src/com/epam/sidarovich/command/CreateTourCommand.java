@@ -39,7 +39,9 @@ public class CreateTourCommand implements ActionCommand{
         String date = request.getParameter("date");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date dateTime=null;
+        Date current=new Date();
         GregorianCalendar cal = new GregorianCalendar();
+        System.out.println(cal.getTimeInMillis());
 
         try {
             dateTime = df.parse(date);
@@ -55,7 +57,7 @@ public class CreateTourCommand implements ActionCommand{
         int cost = Integer.valueOf(request.getParameter("cost"));
 
             try {
-                if(country!=null && date!=null && cost>0){
+                if(country!=null && date!=null && cost>0 && dateTime.after(current)){
                 tourLogic.createTour(cal, isHot, tourType, cost,country);
                 }
                 LOG.info("Not valid tour");
@@ -74,7 +76,7 @@ public class CreateTourCommand implements ActionCommand{
         User user=(User)session.getAttribute("user");
         session.setAttribute("isAdmin", user.getIsAdmin());
         request.setAttribute("tours", tours);
-        ConfigurationManager configurationManager=new ConfigurationManager();
-        return configurationManager.getProperty("path.page.tours");
+        PathPageManager pathPageManager =new PathPageManager();
+        return pathPageManager.getProperty("path.page.tours");
     }
 }

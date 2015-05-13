@@ -21,7 +21,7 @@ public class GoToSignUpPageUpCommand implements ActionCommand{
      */
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
-        ConfigurationManager configurationManager=new ConfigurationManager();
-        return configurationManager.getProperty("path.page.registration");
+        PathPageManager pathPageManager =new PathPageManager();
+        return pathPageManager.getProperty("path.page.registration");
     }
     }

@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
 public class Tour extends Entity {
     private int id;
     private GregorianCalendar date;
-    private Boolean isHot;
+    private boolean isHot;
     private TourType tourType;
     private int cost;
     private int discount;
@@ -114,9 +114,9 @@ public class Tour extends Entity {
         if (cost != tour.cost) return false;
         if (discount != tour.discount) return false;
         if (id != tour.id) return false;
+        if (isHot != tour.isHot) return false;
         if (!country.equals(tour.country)) return false;
         if (!date.equals(tour.date)) return false;
-        if (!isHot.equals(tour.isHot)) return false;
         if (tourType != tour.tourType) return false;
 
         return true;
@@ -126,7 +126,7 @@ public class Tour extends Entity {
     public int hashCode() {
         int result = id;
         result = 31 * result + date.hashCode();
-        result = 31 * result + isHot.hashCode();
+        result = 31 * result + (isHot ? 1 : 0);
         result = 31 * result + tourType.hashCode();
         result = 31 * result + cost;
         result = 31 * result + discount;
