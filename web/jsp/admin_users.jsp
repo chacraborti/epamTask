@@ -50,14 +50,14 @@
                     </td>
                     <td>${element.email}</td>
                     <td>
-                    <form name="deleteButton" method="POST" action="controller">
+                    <form name="deleteButton" method="POST" action="controller" >
                         <input type="hidden" name="command" value="delete_user" />
                         <input type="hidden" name="userEmail" value="${element.email}">
                         <input type="hidden" name="confirm" value="${element.email}">
-                        <button type="submit" class="login login-submit" class="button" "><fmt:message key="delete"  /></button>
+                        <button type="submit" class="login login-submit" ><fmt:message key="delete"  /></button>
                         <%--<script>--%>
                             <%--function submitDeleteFunction() {--%>
-                                <%--if(confirm("<fmt:message key="submit_delete"  />"));--%>
+                                 <%--return(confirm('<fmt:message key="submit_delete"  />'));--%>
                             <%--}--%>
                         <%--</script>--%>
                     </form>

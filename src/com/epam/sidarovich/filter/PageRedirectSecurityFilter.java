@@ -1,8 +1,8 @@
 package com.epam.sidarovich.filter;
 
 /**
- * Created by ilona on 07.05.15.
- */
+* Created by ilona on 07.05.15.
+*/
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by ilona on 26.04.15.
  */
-public class GoToSignUpPageUpCommand implements ActionCommand{
+public class SignUpPageUpCommand implements ActionCommand{
 
 
     /**

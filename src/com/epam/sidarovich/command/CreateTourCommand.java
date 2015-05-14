@@ -27,7 +27,7 @@ public class CreateTourCommand implements ActionCommand{
     private static final Logger LOG = Logger.getLogger(CreateTourCommand.class);
 
     /**
-     * Create tour, if country, date and cost>0 are entered, return tours page
+     * Create tour, if country, date and cost>0 are entered, today or future date return tours page
      * @param request
      * @return
      * @throws CommandException
@@ -40,14 +40,17 @@ public class CreateTourCommand implements ActionCommand{
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date dateTime=null;
         Date current=new Date();
+
         GregorianCalendar cal = new GregorianCalendar();
-        System.out.println(cal.getTimeInMillis());
 
         try {
             dateTime = df.parse(date);
         } catch (ParseException e) {
             throw new CommandException();
         }
+
+
+
         cal.setTime(dateTime);
         TourType tourType = TourType.valueOf(request.getParameter("tourType"));
         boolean isHot=false;
@@ -76,6 +79,7 @@ public class CreateTourCommand implements ActionCommand{
         User user=(User)session.getAttribute("user");
         session.setAttribute("isAdmin", user.getIsAdmin());
         request.setAttribute("tours", tours);
+
         PathPageManager pathPageManager =new PathPageManager();
         return pathPageManager.getProperty("path.page.tours");
     }

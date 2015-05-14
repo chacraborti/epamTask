@@ -26,7 +26,7 @@ public enum CommandEnum {
     },
     SIGNUP{
         {
-            this.command = new GoToSignUpPageUpCommand();
+            this.command = new SignUpPageUpCommand();
         }
     },
     SUBMIT_SIGNUP{
@@ -51,7 +51,7 @@ public enum CommandEnum {
     },
     CREATE_TOUR{
         {
-            this.command = new GoToCreateTourPageCommand();
+            this.command = new CreateTourPageCommand();
         }
     },
     SUBMIT_CREATE_TOUR{
