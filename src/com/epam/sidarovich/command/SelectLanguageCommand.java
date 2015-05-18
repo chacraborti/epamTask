@@ -24,7 +24,7 @@ public class SelectLanguageCommand implements ActionCommand{
         else {
             session.setAttribute("Locale", "en");
         }
-        PathPageManager pathPageManager =new PathPageManager();
+        PathPageManager pathPageManager = new PathPageManager();
         return pathPageManager.getProperty("path.page.login");
     }
 }

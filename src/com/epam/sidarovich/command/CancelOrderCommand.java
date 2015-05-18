@@ -10,8 +10,7 @@ import com.epam.sidarovich.logic.OrderLogic;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by ilona on 10.05.15.
@@ -37,7 +36,9 @@ public class CancelOrderCommand implements ActionCommand {
             throw new CommandException();
         }
         try {
+            if(order.getOrderStatus()!=OrderStatus.PAID){
             orderLogic.updateOrderStatus(order, OrderStatus.CANCELED);
+            }
         } catch (LogicException e) {
             throw new CommandException();
         }

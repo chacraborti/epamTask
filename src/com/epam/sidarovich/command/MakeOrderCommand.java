@@ -13,7 +13,9 @@ import com.epam.sidarovich.logic.TourLogic;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Created by ilona on 05.05.15.
@@ -37,7 +39,7 @@ public class MakeOrderCommand implements ActionCommand{
         String email = user.getEmail();
         Tour tour;
         int idTour=Integer.valueOf(request.getParameter("tourId"));
-        try {
+         try {
             tour = tourLogic.createTourById(idTour);
         } catch (LogicException e) {
             throw new CommandException(e);
@@ -54,9 +56,10 @@ public class MakeOrderCommand implements ActionCommand{
         } catch (LogicException e) {
             throw new CommandException(e);
         }
+
         Collections.reverse(orderList);
         session.setAttribute("orders",orderList);
-        PathPageManager pathPageManager =new PathPageManager();
+        PathPageManager pathPageManager = new PathPageManager();
         return pathPageManager.getProperty("path.page.cart");
 
     }

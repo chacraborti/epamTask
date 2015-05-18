@@ -4,7 +4,15 @@
 <html><head><title><fmt:message key="error" /><br/></title></head>
 <body>
 <fmt:message key="error" />
-    ${pageContext.request.contextPath}
+Request from ${pageContext.errorData.requestURI} is failed
+<br/>
+Servlet name: ${pageContext.errorData.servletName}
+<br/>
+Status code: ${pageContext.errorData.statusCode}
+<br/>
+Exception: ${pageContext.exception}
+<br/>
+Message from exception: ${pageContext.exception.message}
 ￼</body>
 </html>
 </fmt:bundle>

@@ -8,6 +8,8 @@ import com.epam.sidarovich.logic.UserLogic;
 import com.epam.sidarovich.validator.EntranceValidator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Locale;
 
 /**
  * Created by ilona on 27.04.15.
@@ -32,6 +34,9 @@ public class SignUpCommand implements ActionCommand {
         EntranceValidator entranceValidator =new EntranceValidator();
         PathPageManager pathPageManager =new PathPageManager();
         User user;
+        HttpSession session = request.getSession();
+        SessionLocaleManager sessionLocaleManager = new SessionLocaleManager();
+        Locale locale = sessionLocaleManager.receiveLocale(session);
         try {
             user=userLogic.findUserByEmail(email);
         } catch (LogicException e) {
@@ -44,14 +49,14 @@ public class SignUpCommand implements ActionCommand {
                 } catch (LogicException e) {
                     throw new CommandException(e);
                 }
-                request.setAttribute("registrationSuccess", messageManager.getProperty("message.registrationSuccess"));
+                request.setAttribute("registrationSuccess", messageManager.getProperty("message.registrationSuccess",locale));
                 page= pathPageManager.getProperty("path.page.login");
             }
         }else{
             if(password!=password2){
-                request.setAttribute("passwordNotMatch", messageManager.getProperty("message.passwordNotMatch"));
+                request.setAttribute("passwordNotMatch", messageManager.getProperty("message.passwordNotMatch",locale));
             }
-            request.setAttribute("errorUserExist", messageManager.getProperty("message.userexist"));
+            request.setAttribute("errorUserExist", messageManager.getProperty("message.userexist",locale));
 
             page = pathPageManager.getProperty("path.page.registration");
 

@@ -6,6 +6,8 @@ import com.epam.sidarovich.manager.*;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Locale;
 
 public class ActionFactory {
 
@@ -20,6 +22,9 @@ public class ActionFactory {
 
        ActionCommand currentCommand = new EmptyCommand();
        String action = request.getParameter("command");
+        HttpSession session = request.getSession();
+        SessionLocaleManager sessionLocaleManager = new SessionLocaleManager();
+        Locale locale = sessionLocaleManager.receiveLocale(session);
 
        if (action == null || action.isEmpty()) {
        }
@@ -29,7 +34,7 @@ public class ActionFactory {
            LOG.info(action);
        } catch (IllegalArgumentException e) {
            MessageManager messageManager = new MessageManager();
-           request.setAttribute("wrongAction", action + messageManager.getProperty("message.wrongaction"));
+           request.setAttribute("wrongAction", action + messageManager.getProperty("message.wrongaction",locale));
        }
        return currentCommand;
    }

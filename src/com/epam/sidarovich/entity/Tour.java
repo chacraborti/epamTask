@@ -1,5 +1,6 @@
 package com.epam.sidarovich.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 /**
@@ -91,6 +92,7 @@ public class Tour extends Entity {
     public void setDiscount(int discount) {
         this.discount = discount;
     }
+
 
     @Override
     public String toString() {

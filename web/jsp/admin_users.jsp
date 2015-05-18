@@ -11,15 +11,25 @@
     </head>
     <body>
     <c:import url="header.jsp" />
+    <div>
     <div ><h2 class="pagename"><fmt:message key="users" /></h2></div>
-    <div class="container">
-      <div class="column">
+        <nav>
+    <fmt:bundle basename="resources.pagecontent" prefix = "navigation." >
+      <div class="nav_button">
           <form name="registrationButton" method="POST" action="controller">
               <input type="hidden" name="command" value="create_tour" />
-              <input type="submit" value=<fmt:message key="create_tour" />  class="button"/>
-
+              <input type="submit" value=<fmt:message key="create_tour" />  class="button" />
           </form>
       </div>
+          <div class="nav_button">
+              <form name="registrationButton" method="POST" action="controller">
+                  <input type="hidden" name="command" value="view_tours" />
+                  <input type="submit" value=<fmt:message key="tours" />  class="button" />
+              </form>
+          </div>
+        </fmt:bundle>
+          </nav>
+    </div>
     <div class="working">
         <table class="main_table">
             <tr class="navigation">
@@ -27,7 +37,7 @@
                 <td><fmt:message key="regular" /></td>
                 <td><fmt:message key="email" /></td>
                 <td></td>
-                <td></td>
+                <%--<td></td>--%>
                 <td><fmt:message key="discount" /></td>
             </tr>
             <c:forEach items="${users}" var="element">
@@ -49,19 +59,19 @@
                         </c:choose>
                     </td>
                     <td>${element.email}</td>
-                    <td>
-                    <form name="deleteButton" method="POST" action="controller" >
-                        <input type="hidden" name="command" value="delete_user" />
-                        <input type="hidden" name="userEmail" value="${element.email}">
-                        <input type="hidden" name="confirm" value="${element.email}">
-                        <button type="submit" class="login login-submit" ><fmt:message key="delete"  /></button>
-                        <%--<script>--%>
-                            <%--function submitDeleteFunction() {--%>
-                                 <%--return(confirm('<fmt:message key="submit_delete"  />'));--%>
-                            <%--}--%>
-                        <%--</script>--%>
-                    </form>
-                    </td>
+                    <%--<td>--%>
+                    <%--<form name="deleteButton" method="POST" action="controller" >--%>
+                        <%--<input type="hidden" name="command" value="delete_user" />--%>
+                        <%--<input type="hidden" name="userEmail" value="${element.email}">--%>
+                        <%--<input type="hidden" name="confirm" value="${element.email}">--%>
+                        <%--<button type="submit" class="login login-submit" ><fmt:message key="delete"  /></button>--%>
+                        <%--&lt;%&ndash;<script>&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;function submitDeleteFunction() {&ndash;%&gt;--%>
+                                 <%--&lt;%&ndash;return(confirm('<fmt:message key="submit_delete"  />'));&ndash;%&gt;--%>
+                            <%--&lt;%&ndash;}&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;</script>&ndash;%&gt;--%>
+                    <%--</form>--%>
+                    <%--</td>--%>
 
                     <td>
                 <c:if test="${element.isRegular}">
@@ -69,14 +79,14 @@
                         <input type="hidden" name="command" value="user_discount" />
                         <input type="hidden" name="userEmail" value="${element.email}">
 
-                        <input name="discount" type="number" value="" style="width: 200px;" min="1"/>
+                        <input name="discount" type="number" value="" style="width: 50px;" min="1" required max="50"/>%
                         <input type="submit" value="<fmt:message key="set_discount" />"  class="button"/>
                     </form>
                     </c:if>
                     </td>
                     <td>
                 <c:if test="${element.discount>0}">
-                    ${element.discount}
+                    ${element.discount}%
                   </c:if>
                     </td>
                 </tr>
@@ -84,7 +94,6 @@
             </c:forEach>
         </table>
 
-    </div>
     </div>
     </body>
     </html>

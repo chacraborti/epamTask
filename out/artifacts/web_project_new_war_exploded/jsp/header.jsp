@@ -18,7 +18,7 @@
             <div class="section" id="hello">
                 <form name="helloForm" method="POST" action="controller">
                     <c:if test="${user!=null}">
-                    <p><fmt:message key="hello" /> ${user.name}</p>
+                    <p><fmt:message key="hello" /> ${user.name}!</p>
                     </c:if>
                 </form>
             </div>

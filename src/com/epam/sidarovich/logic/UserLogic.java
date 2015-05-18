@@ -83,11 +83,15 @@ public class UserLogic {
      */
     public void updateUserDiscount(String email, int discount) throws LogicException{
         UserDAO userDAO = new UserDAO();
+
         try {
+            if(discount>0){
             userDAO.updateUserDiscount(email,discount);
+            }
         } catch (DAOException e) {
             throw new LogicException(e);
         }
+
     }
 
     /**

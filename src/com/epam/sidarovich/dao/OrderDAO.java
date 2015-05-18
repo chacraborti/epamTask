@@ -2,13 +2,11 @@ package com.epam.sidarovich.dao;
 
 import com.epam.sidarovich.connection.ConnectionPool;
 import com.epam.sidarovich.entity.*;
-import com.epam.sidarovich.exception.ConnectionPoolException;
 import com.epam.sidarovich.exception.DAOException;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.sql.Date;
+import java.util.*;
 
 /**
  * Created by ilona on 24.04.15.
@@ -16,7 +14,7 @@ import java.util.List;
 public class OrderDAO extends AbstractDAO<Order>{
     private static final String SELECT_ALL_FROM_ORDERS = "SELECT emailUser, OrderStatus, Tour.idTour, Country, Cost, Discount, isHot, Date , TourType.Name FROM Purchase JOIN Tour ON Purchase.idTour=Tour.idTour JOIN TourType on Tour.idTourType=TourType.idTourType";
     private static final String CREATE_ORDER = "INSERT INTO Purchase (idTour, emailUser, OrderStatus) VALUES(?, ?, ?)";
-    private static final String SELECT_ORDER_BY_EMAIL = "SELECT idOrder, emailUser, OrderStatus, Tour.idTour, Country, Cost, Discount, isHot, Date , TourType.Name FROM Purchase JOIN Tour ON Purchase.idTour=Tour.idTour JOIN TourType on Tour.idTourType=TourType.idTourType WHERE emailUser=?";
+    private static final String SELECT_ORDER_BY_EMAIL = "SELECT idOrder, emailUser, OrderStatus, Tour.idTour, Country, Cost, Discount, isHot, Date , TourType.Name FROM Purchase JOIN Tour ON Purchase.idTour=Tour.idTour JOIN TourType on Tour.idTourType=TourType.idTourType WHERE emailUser=? Order by idOrder";
     private static final String SELECT_ORDER_BY_ID = "SELECT idOrder, emailUser, OrderStatus, Tour.idTour, Country, Cost, Discount, isHot, Date , TourType.Name FROM Purchase JOIN Tour ON Purchase.idTour=Tour.idTour JOIN TourType on Tour.idTourType=TourType.idTourType WHERE idOrder=?";
     private static final String CHANGE_ORDER_STATUS = "UPDATE Purchase  set OrderStatus=? WHERE idOrder=?";
     private static final String UPDATE_ORDER = "UPDATE Purchase SET idOrder = ?, idTour = ?, emailUser = ?, OrderStatus = ?";
@@ -177,7 +175,7 @@ public class OrderDAO extends AbstractDAO<Order>{
      * @throws DAOException
      */
     public List<Order> findByEmail(String email) throws DAOException{
-        List<Order> orders = new ArrayList<>();
+       List<Order> orders = new LinkedList<>();
         ConnectionPool connectionPool = null;
         PreparedStatement statement = null;
         Connection connection = null;
@@ -190,6 +188,7 @@ public class OrderDAO extends AbstractDAO<Order>{
             while (resultSet.next()) {
                 Order order = createEntity(resultSet);
                 orders.add(order);
+
             }
         } catch (SQLException e) {
             throw new DAOException(e);

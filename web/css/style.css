@@ -33,6 +33,7 @@ header{
     height:90%;
 }
 .form{
+
     border:0;
     float:left;
     height:300px;
@@ -172,6 +173,7 @@ p{
     margin-right: 30px;
 }
 .content-card {
+    background-color: #fff;
     height:60px;
 }
 .part {
@@ -192,6 +194,7 @@ p{
     border: 1px #999999 solid;
     margin-top: 50px;
     margin-left: 10%;
+    margin-top: 100px;
 }
 #country{
     font-size: 16pt;
@@ -221,5 +224,15 @@ p{
 }
 .discount{
     width: 50px;
+}
+
+nav {
+    width: 100%;
+    float: left;
+    margin-left: 90px;
+}
+.nav_button{
+    float: left;
+    margin-left: 10px
 }
 

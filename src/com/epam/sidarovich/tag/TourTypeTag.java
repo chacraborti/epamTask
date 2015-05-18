@@ -1,11 +1,8 @@
 package com.epam.sidarovich.tag;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 
 @SuppressWarnings("serial")
 public class TourTypeTag extends TagSupport {
@@ -29,8 +26,8 @@ public class TourTypeTag extends TagSupport {
                 path="img/rest.jpg";
             }
             else if ("EXCURSION".equalsIgnoreCase(tourType)){
-                path="img/excursion.jpg";
-            }
+                path="img/excursion.jpg";}
+
             else if ("SHOPPING".equalsIgnoreCase(tourType)){
                 path="img/shopping.jpg";
             }

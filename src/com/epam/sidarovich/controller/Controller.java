@@ -29,7 +29,6 @@ import java.io.IOException;
     @Override
     public void init(){
         new DOMConfigurator().configure(getServletContext().getRealPath("/data/log4j.xml"));
-        LOG.info("Server start");
     }
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException { processRequest(request, response);
@@ -58,7 +57,7 @@ import java.io.IOException;
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
                 dispatcher.forward(request, response);
             } else {
-                PathPageManager pathPageManager =new PathPageManager();
+                PathPageManager pathPageManager = new PathPageManager();
                 request.getRequestDispatcher(pathPageManager.getProperty("path.page.error")).forward(request, response);
 
             }

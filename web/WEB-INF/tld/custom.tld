@@ -16,4 +16,13 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+    <function>
+        <name>dateFormatted</name>
+        <function-class>
+            com.epam.sidarovich.tag.DateFormat
+        </function-class>
+        <function-signature>
+            java.lang.String dateFormatted(java.util.GregorianCalendar)
+        </function-signature>
+    </function>
 </taglib>

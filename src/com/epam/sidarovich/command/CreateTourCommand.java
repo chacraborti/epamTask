@@ -54,7 +54,7 @@ public class CreateTourCommand implements ActionCommand{
         cal.setTime(dateTime);
         TourType tourType = TourType.valueOf(request.getParameter("tourType"));
         boolean isHot=false;
-        if (request.getParameter("isHot")=="isHot"){
+        if (request.getParameter("isHot")!=null){
             isHot=true;
         }
         int cost = Integer.valueOf(request.getParameter("cost"));

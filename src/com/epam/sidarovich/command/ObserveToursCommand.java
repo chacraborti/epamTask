@@ -8,6 +8,8 @@ import com.epam.sidarovich.logic.TourLogic;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.util.Collections;
 import java.util.List;
 
 public class ObserveToursCommand implements ActionCommand{
@@ -27,6 +29,7 @@ public class ObserveToursCommand implements ActionCommand{
         } catch (LogicException e) {
             throw new CommandException(e);
         }
+        Collections.reverse(tours);
         session.setAttribute("tours", tours);
         PathPageManager pathPageManager =new PathPageManager();
         return pathPageManager.getProperty("path.page.tours");

@@ -33,7 +33,7 @@
                     ${nullPage} <br/>
                     ${fillFormError} <br/>
                     ${registrationSuccess} <br/>
-                <button type="submit" class="login login-submit"><fmt:message key="log_in" /></button>
+                <button type="submit" class="login login-submit" style="padding-top: 10px"><fmt:message key="log_in" /></button>
             </form>
             <p><fmt:message key="or"/></p>
             <div class="login-help">

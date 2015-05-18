@@ -85,6 +85,16 @@ public enum CommandEnum {
         {
             this.command = new SetUserDiscountCommand();
         }
+    },
+    VIEW_TOURS{
+        {
+            this.command = new ObserveToursCommand();
+        }
+    },
+    VIEW_ORDERS{
+        {
+            this.command = new ObserveOrders();
+        }
     };
 
     ActionCommand command;

@@ -7,7 +7,9 @@ import com.epam.sidarovich.entity.Tour;
 import com.epam.sidarovich.exception.DAOException;
 import com.epam.sidarovich.exception.LogicException;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Created by ilona on 05.05.15.
