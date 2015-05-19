@@ -60,7 +60,6 @@ public class ConnectionPool {
         try{
         connection = connections.take();
         }catch (InterruptedException e){
-            Thread.currentThread().interrupt();
             LOG.error("Tread is interrupted");
         }
         return connection;

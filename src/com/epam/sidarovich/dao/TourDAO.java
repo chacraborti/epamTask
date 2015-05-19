@@ -19,12 +19,13 @@ import java.util.List;
 public class TourDAO extends AbstractDAO<Tour> {
     private static final Logger LOG = Logger.getLogger(TourDAO.class);
 
-    private static final String SELECT_ALL_FROM_TOUR = "select idTour, Date, isHot, Cost, Discount, Country, TourType.Name from Tour Join TourType on Tour.idTourType=TourType.idTourType";
+    private static final String SELECT_ALL_FROM_TOUR = "SELECT idTour, Date, isHot, Cost, Discount, Country, TourType.Name from Tour Join TourType on Tour.idTourType=TourType.idTourType";
     private static final String FIND_TOUR_BY_ID = "SELECT idTour, Date, isHot, Cost, Discount, Country, TourType.Name from Tour Join TourType on Tour.idTourType=TourType.idTourType WHERE idTour=?";
     private static final String DELETE_TOUR_BY_ID = "DELETE FROM Tour WHERE Tour.idTour = ?";
     private static final String CREATE_TOUR = "INSERT INTO Tour (Date, isHot, idTourType, Cost, Discount, Country) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_TOUR = "UPDATE Tour SET Date = ?, isHot = ?, idTourType = ?, Cost = ?, Discount = ?, Country = ?  WHERE id = ?";
-    private static final String TOUR_TYPE = "SELECT TourType.Name FROM TourType WHERE idTourType = ?";
+    private static final String SELECT_TOUR = "SELECT Date, isHot, Cost, Country, TourType.Name from Tour Join TourType on Tour.idTourType=TourType.idTourType WHERE Date=?, isHot=?, Cost=?, Country=?, TourType.Name=?";
+
 
     /**
      * @return

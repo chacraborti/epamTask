@@ -6,7 +6,9 @@ import com.epam.sidarovich.entity.TourType;
 import com.epam.sidarovich.exception.DAOException;
 import com.epam.sidarovich.exception.LogicException;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -76,5 +78,4 @@ public List<Tour> viewAllTours() throws LogicException{
         }
         return tour;
     }
-
 }

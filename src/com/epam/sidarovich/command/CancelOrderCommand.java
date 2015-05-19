@@ -49,7 +49,7 @@ public class CancelOrderCommand implements ActionCommand {
             throw new CommandException(e);
         }
         Collections.reverse(orderList);
-        session.setAttribute("orders",orderList);
+        request.setAttribute("orders",orderList);
         PathPageManager pathPageManager =new PathPageManager();
         return pathPageManager.getProperty("path.page.cart");
 

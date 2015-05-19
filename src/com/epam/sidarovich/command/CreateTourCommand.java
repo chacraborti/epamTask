@@ -14,10 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by ilona on 07.05.15.
@@ -25,6 +22,8 @@ import java.util.List;
 public class CreateTourCommand implements ActionCommand{
 
     private static final Logger LOG = Logger.getLogger(CreateTourCommand.class);
+    private static final int MIN_COST=0;
+    private static final int DATE_DECREMENT=-1;
 
     /**
      * Create tour, if country, date and cost>0 are entered, today or future date return tours page
@@ -39,17 +38,19 @@ public class CreateTourCommand implements ActionCommand{
         String date = request.getParameter("date");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date dateTime=null;
-        Date current=new Date();
+        Date preCurrent=new Date();
 
         GregorianCalendar cal = new GregorianCalendar();
+        Calendar c = Calendar.getInstance();
+        c.setTime(preCurrent);
+        c.add(Calendar.DATE, DATE_DECREMENT);
+        preCurrent = c.getTime();
 
         try {
             dateTime = df.parse(date);
         } catch (ParseException e) {
             throw new CommandException();
         }
-
-
 
         cal.setTime(dateTime);
         TourType tourType = TourType.valueOf(request.getParameter("tourType"));
@@ -58,9 +59,9 @@ public class CreateTourCommand implements ActionCommand{
             isHot=true;
         }
         int cost = Integer.valueOf(request.getParameter("cost"));
-
             try {
-                if(country!=null && date!=null && cost>0 && dateTime.after(current)){
+                if(country!=null && date!=null && cost>MIN_COST && dateTime.after(preCurrent)){
+
                 tourLogic.createTour(cal, isHot, tourType, cost,country);
                 }
                 LOG.info("Not valid tour");

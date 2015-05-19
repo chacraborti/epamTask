@@ -30,7 +30,7 @@ public class ObserveToursCommand implements ActionCommand{
             throw new CommandException(e);
         }
         Collections.reverse(tours);
-        session.setAttribute("tours", tours);
+        request.setAttribute("tours", tours);
         PathPageManager pathPageManager =new PathPageManager();
         return pathPageManager.getProperty("path.page.tours");
         }

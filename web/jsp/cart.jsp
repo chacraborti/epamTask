@@ -25,6 +25,9 @@
         </div>
     </fmt:bundle>
     </nav>
+    <div style="margin-left: 100px">
+    ${emptyCart}
+    </div>
     <c:forEach items="${orders}" var="element">
         <c:if test="${element.orderStatus != 'CANCELED'}">
         <div class="content-wrapper">
@@ -34,12 +37,17 @@
                 <div class="part">
                     <ctg:tour-type tourType="${element.tour.tourType}"></ctg:tour-type>
                 </div>
+                <div class="part">
+                    <c:if test="${element.tour.isHot}">
+                        <img src=img/hot.jpg>
+                    </c:if>
+                </div>
             </div>
             <fmt:bundle basename="resources.pagecontent" prefix = "tour_table." >
             <div class="content-card">
                 <c:choose>
                     <c:when test="${user.discount>0}">
-                        <div class="part" style="text-decoration: line-through">
+                        <div class="part" style="text-decoration: line-through; float: left">
                             <fmt:message key="cost" /> ${element.tour.cost}$
                         </div>
                         <div class="part" style="font-size: 16pt; color: red"><fmt:message key="your_cost" /> ${(element.tour.cost*(100-user.discount))/100}$ </div>
@@ -53,19 +61,10 @@
                         <fmt:message key="discount" /> ${element.tour.discount}
                     </c:if>
                 </div>
-                <div class="part">
-                    <c:if test="${element.tour.isHot}">
-                        <img src=img/hot.jpg>
-                    </c:if>
-                </div>
-                <div class="part" style="color: green; font-size: 16pt; font-weight: bold;">
-                    <c:if test="${element.orderStatus=='PAID'}">
-                     <fmt:message key="paid" />
-                    </c:if>
-                </div>
             </div>
-                <c:if test="${element.orderStatus=='ACTIVE'}">
+
                 <div class="content-card">
+                <c:if test="${element.orderStatus=='ACTIVE'}">
                     <div class="part">
                                 <form name="cancelButton" method="POST" action="controller">
                                     <input type="hidden" name="command" value="cancel_order" />
@@ -81,10 +80,14 @@
                             <input type="submit" value=<fmt:message key="pay" />  class="button"/>
                         </form>
                     </div>
-                    <div class="part">
+                </c:if>
+                    <div class="part" style="color: green; font-size: 16pt; font-weight: bold;">
+                        <c:if test="${element.orderStatus=='PAID'}">
+                            <fmt:message key="paid" />
+                        </c:if>
                     </div>
                 </div>
-                </c:if>
+
                 </div>
             </fmt:bundle>
 </c:if>

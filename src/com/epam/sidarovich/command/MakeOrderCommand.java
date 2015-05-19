@@ -58,7 +58,7 @@ public class MakeOrderCommand implements ActionCommand{
         }
 
         Collections.reverse(orderList);
-        session.setAttribute("orders",orderList);
+        request.setAttribute("orders",orderList);
         PathPageManager pathPageManager = new PathPageManager();
         return pathPageManager.getProperty("path.page.cart");
 

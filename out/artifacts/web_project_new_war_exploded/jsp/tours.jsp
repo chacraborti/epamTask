@@ -58,6 +58,11 @@
                     <div class="part">
                         <ctg:tour-type tourType="${element.tourType}"></ctg:tour-type>
                     </div>
+                    <div class="part">
+                        <c:if test="${element.isHot}">
+                            <img src=img/hot.jpg>
+                        </c:if>
+                    </div>
                 </div>
                 <fmt:bundle basename="resources.pagecontent" prefix = "tour_table." >
                 <div class="content-card">
@@ -66,11 +71,6 @@
                         <c:if test="${element.discount > 0}">
                             <fmt:message key="discount" /> ${element.discount}
                         </c:if>
-                    </div>
-                    <div class="part">
-                        <c:if test="${element.isHot}">
-                            <img src=img/hot.jpg>
-                    </c:if>
                     </div>
                 </div>
                 <div class="content-card">

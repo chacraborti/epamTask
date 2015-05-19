@@ -73,7 +73,7 @@
                     <%--</form>--%>
                     <%--</td>--%>
 
-                    <td>
+                    <td style="padding-top: 25px">
                 <c:if test="${element.isRegular}">
                     <form name="discount" method="POST" action="controller">
                         <input type="hidden" name="command" value="user_discount" />
@@ -84,7 +84,7 @@
                     </form>
                     </c:if>
                     </td>
-                    <td>
+                    <td >
                 <c:if test="${element.discount>0}">
                     ${element.discount}%
                   </c:if>

@@ -93,7 +93,7 @@ public enum CommandEnum {
     },
     VIEW_ORDERS{
         {
-            this.command = new ObserveOrders();
+            this.command = new ObserveOrdersCommand();
         }
     };
 

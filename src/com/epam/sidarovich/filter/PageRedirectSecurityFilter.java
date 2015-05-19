@@ -17,6 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebFilter( urlPatterns = { "/jsp/*" }, initParams = { @WebInitParam(name = "INDEX_PATH", value = "/index.jsp") })
 public class PageRedirectSecurityFilter implements Filter {
     private String indexPath;
+
+    /**
+     * Init filter
+     * @param fConfig
+     * @throws ServletException
+     */
     public void init(FilterConfig fConfig) throws ServletException {
         indexPath = fConfig.getInitParameter("INDEX_PATH");
     }
@@ -36,5 +42,6 @@ public class PageRedirectSecurityFilter implements Filter {
         chain.doFilter(request, response);
     }
     public void destroy() {
+
     }
 }
