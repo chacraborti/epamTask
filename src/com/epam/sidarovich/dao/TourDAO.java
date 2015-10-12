@@ -3,7 +3,6 @@ package com.epam.sidarovich.dao;
 import com.epam.sidarovich.connection.ConnectionPool;
 import com.epam.sidarovich.entity.Tour;
 import com.epam.sidarovich.entity.TourType;
-import com.epam.sidarovich.exception.ConnectionPoolException;
 import com.epam.sidarovich.exception.DAOException;
 import org.apache.log4j.Logger;
 
@@ -19,7 +18,7 @@ import java.util.List;
 public class TourDAO extends AbstractDAO<Tour> {
     private static final Logger LOG = Logger.getLogger(TourDAO.class);
 
-    private static final String SELECT_ALL_FROM_TOUR = "SELECT idTour, Date, isHot, Cost, Discount, Country, TourType.Name from Tour Join TourType on Tour.idTourType=TourType.idTourType";
+    private static final String SELECT_ALL_FROM_TOUR = "SELECT t.idTour, Date, isHot, Cost, Discount, Country, TourType.Name from Tour t Join TourType on Tour.idTourType=TourType.idTourType";
     private static final String FIND_TOUR_BY_ID = "SELECT idTour, Date, isHot, Cost, Discount, Country, TourType.Name from Tour Join TourType on Tour.idTourType=TourType.idTourType WHERE idTour=?";
     private static final String DELETE_TOUR_BY_ID = "DELETE FROM Tour WHERE Tour.idTour = ?";
     private static final String CREATE_TOUR = "INSERT INTO Tour (Date, isHot, idTourType, Cost, Discount, Country) VALUES(?, ?, ?, ?, ?, ?)";
@@ -187,6 +186,7 @@ public class TourDAO extends AbstractDAO<Tour> {
         ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
 
         Connection connection = connectionPool.getConnection();
+
         PreparedStatement statement = null;
 
             try {
@@ -263,7 +263,7 @@ public class TourDAO extends AbstractDAO<Tour> {
             TourType tour_type=TourType.valueOf(typeOfTour.replace("-", "_").toUpperCase());
             tour.setTourType(tour_type);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         }
         return tour;
     }

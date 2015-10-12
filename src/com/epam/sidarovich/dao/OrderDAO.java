@@ -27,7 +27,7 @@ public class OrderDAO extends AbstractDAO<Order>{
      */
     @Override
     public List<Order> findAll() throws DAOException {
-        List<Order> orders = new ArrayList<>();
+        List<Order> orders = new LinkedList<>();
         ConnectionPool connectionPool = null;
         PreparedStatement statement = null;
         Connection connection = null;

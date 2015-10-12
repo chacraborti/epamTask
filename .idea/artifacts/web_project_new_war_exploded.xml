@@ -1,0 +1,23 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="web_project_new:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/web_project_new_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="web_project_new/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="web_project_new" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="mysql-connector-java-5.1.13-bin" />
+          <element id="library" level="project" name="mysql-connector-java-5.1.13-bin (2)" />
+          <element id="library" level="project" name="log4j-1.2.17" />
+          <element id="library" level="project" name="jstl-1.2" />
+          <element id="library" level="project" name="apache-commons-codec-1.3" />
+          <element id="library" level="project" name="joda-time-2.7" />
+          <element id="library" level="project" name="junit-4.12" />
+          <element id="library" level="project" name="hamcrest-core-1.3" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

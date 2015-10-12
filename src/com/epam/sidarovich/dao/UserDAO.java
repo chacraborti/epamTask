@@ -6,7 +6,7 @@ import com.epam.sidarovich.exception.DAOException;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -32,7 +32,7 @@ public class UserDAO extends AbstractDAO<User> {
      */
     @Override
     public List<User> findAll() throws DAOException{
-        List<User> users = new ArrayList<>();
+        List<User> users = new LinkedList<>();
         ConnectionPool connectionPool=null;
         PreparedStatement statement = null;
         try {

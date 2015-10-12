@@ -23,6 +23,7 @@ import java.io.IOException;
  */
 
     @WebServlet("/controller")
+    //@org.springframework.stereotype.Controller
     public class Controller extends HttpServlet {
     private static final Logger LOG = Logger.getLogger(Controller.class);
 
@@ -67,8 +68,7 @@ import java.io.IOException;
      * Destroy servlet
      */
     public void destroy() {
-        ConnectionPool connectionPool;
-        connectionPool = ConnectionPool.getConnectionPool();
+        ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
         connectionPool.shutDownConnections();
 
     }

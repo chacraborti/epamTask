@@ -50,7 +50,7 @@ public abstract class AbstractDAO<T extends Entity> {
      * Close statement
      * @param st
      */
-    public void close(Statement st) {
+    protected void close(Statement st) {
         try {
             if (st != null) {
                 st.close();

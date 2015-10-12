@@ -135,4 +135,5 @@ public class Tour extends Entity {
         result = 31 * result + country.hashCode();
         return result;
     }
+
 }
