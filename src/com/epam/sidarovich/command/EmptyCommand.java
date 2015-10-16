@@ -1,6 +1,6 @@
 package com.epam.sidarovich.command;
 
-import com.epam.sidarovich.manager.*;
+import com.epam.sidarovich.manager.PathPageManager;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 public class EmptyCommand implements ActionCommand {
     /**
      * Go to login page
+     *
      * @param request
      * @return
      */

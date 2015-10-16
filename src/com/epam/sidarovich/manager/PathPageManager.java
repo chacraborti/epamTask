@@ -7,10 +7,13 @@ import java.util.ResourceBundle;
  */
 public class PathPageManager {
     private ResourceBundle resourceBundle = ResourceBundle.getBundle("resources.path_page");
-    public PathPageManager() { }
+
+    public PathPageManager() {
+    }
 
     /**
      * Get information from configuration file
+     *
      * @param key
      * @return
      */

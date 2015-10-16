@@ -12,42 +12,45 @@ import java.util.regex.Pattern;
  */
 public class EntranceValidatorTest {
     @Test
-    public void isValidEmailAddressTest(){
+    public void isValidEmailAddressTest() {
         EntranceValidator validator = new EntranceValidator();
-        Pattern pattern =Pattern.compile(EntranceValidator.EMAIL_PATTERN);
+        Pattern pattern = Pattern.compile(EntranceValidator.EMAIL_PATTERN);
         String email = "email@mail.ru";
         Matcher m = pattern.matcher(email);
-        boolean expected=m.matches();
+        boolean expected = m.matches();
         boolean actual = validator.isValidEmailAddress(email);
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals(expected, actual);
     }
-     @Test
-     public void isValidPasswordTestLDifferentPasswords(){
-         EntranceValidator validator = new EntranceValidator();
-         String password = "d1234567";
-         String password2="D1234567";
-         boolean expected = password.equals(password2);
-         boolean actual = validator.isValidPassword(password,password2);
-         Assert.assertEquals(expected,actual);
-     }
+
     @Test
-    public void isValidPasswordTestNoUpperCase(){
+    public void isValidPasswordTestLDifferentPasswords() {
+        EntranceValidator validator = new EntranceValidator();
+        String password = "d1234567";
+        String password2 = "D1234567";
+        boolean expected = password.equals(password2);
+        boolean actual = validator.isValidPassword(password, password2);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void isValidPasswordTestNoUpperCase() {
         Pattern pattern = Pattern.compile(EntranceValidator.LETTER_UPPER_CASE);
         EntranceValidator validator = new EntranceValidator();
         String password = "d1234567";
         String password2 = password;
         boolean expected = pattern.matcher(password).find();
         boolean actual = validator.isValidPassword(password, password2);
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals(expected, actual);
     }
+
     @Test
-    public void isValidPasswordTestLessThanEightCharacters(){
+    public void isValidPasswordTestLessThanEightCharacters() {
         int passwordLength = EntranceValidator.PASSWORD_LENGTH;
         EntranceValidator validator = new EntranceValidator();
         String password = "Ad12345";
-        String password2= password;
-        boolean expected = (password.length()==passwordLength);
-        boolean actual = validator.isValidPassword(password,password2);
-        Assert.assertEquals(expected,actual);
+        String password2 = password;
+        boolean expected = (password.length() == passwordLength);
+        boolean actual = validator.isValidPassword(password, password2);
+        Assert.assertEquals(expected, actual);
     }
 }

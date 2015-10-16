@@ -7,7 +7,6 @@ import com.epam.sidarovich.exception.DAOException;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -18,13 +17,14 @@ import java.util.List;
 public class TourDAO extends AbstractDAO<Tour> {
     private static final Logger LOG = Logger.getLogger(TourDAO.class);
 
-    private static final String SELECT_ALL_FROM_TOUR = "SELECT t.idTour, Date, isHot, Cost, Discount, Country, TourType.Name from Tour t Join TourType on Tour.idTourType=TourType.idTourType";
-    private static final String FIND_TOUR_BY_ID = "SELECT idTour, Date, isHot, Cost, Discount, Country, TourType.Name from Tour Join TourType on Tour.idTourType=TourType.idTourType WHERE idTour=?";
+    private static final String SELECT_ALL_FROM_TOUR = "SELECT idTour, Date, isHot, Cost, Discount, Country, TourType.Name FROM Tour JOIN TourType ON Tour.idTourType=TourType.idTourType";
+    private static final String FIND_TOUR_BY_ID = "SELECT idTour, Date, isHot, Cost, Discount, Country, TourType.Name FROM Tour JOIN TourType ON Tour.idTourType=TourType.idTourType WHERE idTour=?";
     private static final String DELETE_TOUR_BY_ID = "DELETE FROM Tour WHERE Tour.idTour = ?";
     private static final String CREATE_TOUR = "INSERT INTO Tour (Date, isHot, idTourType, Cost, Discount, Country) VALUES(?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_TOUR = "UPDATE Tour SET Date = ?, isHot = ?, idTourType = ?, Cost = ?, Discount = ?, Country = ?  WHERE id = ?";
-    private static final String SELECT_TOUR = "SELECT Date, isHot, Cost, Country, TourType.Name from Tour Join TourType on Tour.idTourType=TourType.idTourType WHERE Date=?, isHot=?, Cost=?, Country=?, TourType.Name=?";
-
+    private static final String UPDATE_TOUR = "UPDATE Tour SET Date = ?, isHot = ?, idTourType = ?, Cost = ?, Country = ?  WHERE idTour = ?";
+    private static final String SELECT_TOUR = "SELECT Date, isHot, Cost, Country, TourType.Name FROM Tour JOIN TourType ON Tour.idTourType=TourType.idTourType WHERE Date=?, isHot=?, Cost=?, Country=?, TourType.Name=?";
+    private static final String IS_PAID = "SELECT COUNT(*) FROM Purchase WHERE idTour=? AND OrderStatus='PAID'";
+    private static final String SELECT_UNPAID_FROM_TOUR = "SELECT Tour.idTour, Date, isHot, Cost, Discount, Country, TourType.Name, OrderStatus FROM Tour JOIN TourType ON Tour.idTourType=TourType.idTourType LEFT JOIN Purchase ON Purchase.idTour=Tour.idTour WHERE  OrderStatus='ACTIVE' OR OrderStatus IS NULL OR OrderStatus='CANCELED'";
 
     /**
      * @return
@@ -37,18 +37,17 @@ public class TourDAO extends AbstractDAO<Tour> {
         PreparedStatement statement = null;
         Connection connection = null;
         try {
-            connectionPool = ConnectionPool.getConnectionPool();
+            connectionPool = ConnectionPool.getInstance();
             connection = connectionPool.getConnection();
-            statement = connection.prepareStatement(SELECT_ALL_FROM_TOUR);
+            statement = connection.prepareStatement(SELECT_UNPAID_FROM_TOUR);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Tour tour = createEntity(resultSet);
                 tours.add(tour);
             }
         } catch (SQLException e) {
-            throw new DAOException();
-        }
-        finally {
+            throw new DAOException(e);
+        } finally {
             close(statement);
             connectionPool.releaseConnection(connection);
         }
@@ -57,13 +56,14 @@ public class TourDAO extends AbstractDAO<Tour> {
 
     /**
      * Find tour by id
+     *
      * @param id
      * @return
      * @throws DAOException
      */
     public Tour findTourById(int id) throws DAOException {
         Tour tour = null;
-        ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
@@ -77,9 +77,8 @@ public class TourDAO extends AbstractDAO<Tour> {
 
         } catch (SQLException e) {
             throw new DAOException(e);
-        }
-        finally {
-                close(statement);
+        } finally {
+            close(statement);
             connectionPool.releaseConnection(connection);
         }
         return tour;
@@ -87,59 +86,60 @@ public class TourDAO extends AbstractDAO<Tour> {
 
     /**
      * Create tour
+     *
      * @param tour
      * @return
      * @throws DAOException
      */
     @Override
     public boolean create(Tour tour) throws DAOException {
-        ConnectionPool connectionPool= ConnectionPool.getConnectionPool();
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
         boolean flag;
-            try {
-                statement = connection.prepareStatement(CREATE_TOUR);
-                GregorianCalendar calendar = tour.getDate();
-                Date date = new Date(calendar.getTimeInMillis());
-                statement.setDate(1, date);
-                boolean isHot = tour.getIsHot();
-                if (isHot) {
-                    statement.setInt(2, 1);
-                } else {
-                    statement.setInt(2, 0);
-                }
-                TourType tour_type = tour.getTourType();
-                switch (tour_type) {
-                    case REST:
-                        statement.setInt(3, 1);
-                        break;
-                    case EXCURSION:
-                        statement.setInt(3, 2);
-                        break;
-                    case SHOPPING:
-                        statement.setInt(3, 3);
-                        break;
-                    default:
-                        throw new DAOException("Unknown tour type");
-                }
-                statement.setInt(4, tour.getCost());
-                statement.setInt(5, tour.getDiscount());
-                statement.setString(6, tour.getCountry());
-
-                if (statement.executeUpdate() > 0) {
-                    flag=true;
-                } else {
-                    throw new DAOException("Update user failed");
-                }
-
-            } catch (SQLException e) {
-                throw new DAOException(e);
-            } finally {
-
-                    close(statement);
-                connectionPool.releaseConnection(connection);
+        try {
+            statement = connection.prepareStatement(CREATE_TOUR);
+            GregorianCalendar calendar = tour.getDate();
+            Date date = new Date(calendar.getTimeInMillis());
+            statement.setDate(1, date);
+            boolean isHot = tour.getIsHot();
+            if (isHot) {
+                statement.setInt(2, 1);
+            } else {
+                statement.setInt(2, 0);
             }
-        if (flag){
+            TourType tour_type = tour.getTourType();
+            switch (tour_type) {
+                case REST:
+                    statement.setInt(3, 1);
+                    break;
+                case EXCURSION:
+                    statement.setInt(3, 2);
+                    break;
+                case SHOPPING:
+                    statement.setInt(3, 3);
+                    break;
+                default:
+                    throw new DAOException("Unknown tour type");
+            }
+            statement.setInt(4, tour.getCost());
+            statement.setInt(5, tour.getDiscount());
+            statement.setString(6, tour.getCountry());
+
+            if (statement.executeUpdate() > 0) {
+                flag = true;
+            } else {
+                throw new DAOException("Update user failed");
+            }
+
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+
+            close(statement);
+            connectionPool.releaseConnection(connection);
+        }
+        if (flag) {
             return true;
         }
         return false;
@@ -147,22 +147,23 @@ public class TourDAO extends AbstractDAO<Tour> {
 
     /**
      * Delete tour by id
+     *
      * @param id
      * @return
      * @throws DAOException
      */
-    public int deleteTourById(int id) throws DAOException{
-        ConnectionPool connectionPool  = ConnectionPool.getConnectionPool();
+    public int deleteTourById(int id) throws DAOException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
 
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
 
         try {
             statement = connection.prepareStatement(DELETE_TOUR_BY_ID);
-            statement.setInt(1,id);
-            if (statement.executeUpdate() > 0){
+            statement.setInt(1, id);
+            if (statement.executeUpdate() > 0) {
                 return statement.executeUpdate();
-            } else{
+            } else {
                 throw new DAOException("Delete tour failed");
             }
 
@@ -177,75 +178,102 @@ public class TourDAO extends AbstractDAO<Tour> {
 
     /**
      * Update tour
+     *
      * @param tour
      * @return
      * @throws DAOException
      */
     @Override
-    public int update(Tour tour) throws DAOException {
-        ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
-
+    public void update(Tour tour, int id) throws DAOException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
-
         PreparedStatement statement = null;
-
-            try {
-                statement = connection.prepareStatement(CREATE_TOUR);
-                statement.setInt(1, tour.getId());
-                GregorianCalendar calendar = tour.getDate();
-                Date date = new Date(calendar.getTimeInMillis());
-                statement.setDate(2, date);
-                boolean isHot = tour.getIsHot();
-                if (isHot) {
-                    statement.setInt(3, 1);
-                } else {
-                    statement.setInt(3, 0);
-                }
-                TourType tour_type = tour.getTourType();
-                switch (tour_type) {
-                    case REST:
-                        statement.setInt(4, 1);
-                        break;
-                    case EXCURSION:
-                        statement.setInt(4, 2);
-                        break;
-                    case SHOPPING:
-                        statement.setInt(4, 3);
-                        break;
-                    default:
-                        throw new DAOException("Unknown tour type");
-                }
-                statement.setInt(5, tour.getCost());
-                statement.setInt(6, tour.getDiscount());
-                if (statement.executeUpdate() > 0) {
-                    return statement.executeUpdate();
-                } else {
-                    throw new DAOException("Update user failed");
-                }
-            } catch (SQLException e) {
-                throw new DAOException(e);
-            } finally {
-                    close(statement);
-                connectionPool.releaseConnection(connection);
+        try {
+            statement = connection.prepareStatement(UPDATE_TOUR);
+            GregorianCalendar calendar = tour.getDate();
+            Date date = new Date(calendar.getTimeInMillis());
+            statement.setDate(1, date);
+            boolean isHot = tour.getIsHot();
+            if (isHot) {
+                statement.setInt(2, 1);
+            } else {
+                statement.setInt(2, 0);
             }
+            TourType tour_type = tour.getTourType();
+            switch (tour_type) {
+                case REST:
+                    statement.setInt(3, 1);
+                    break;
+                case EXCURSION:
+                    statement.setInt(3, 2);
+                    break;
+                case SHOPPING:
+                    statement.setInt(3, 3);
+                    break;
+                default:
+                    throw new DAOException("Unknown tour type");
+            }
+            statement.setInt(4, tour.getCost());
+            statement.setString(5, tour.getCountry());
+            statement.setInt(6, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            close(statement);
+            connectionPool.releaseConnection(connection);
+        }
+    }
+
+    public boolean isPaid(int id) throws DAOException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement(IS_PAID);
+            statement.setInt(1, id);
+            System.out.println(statement);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int quantity = resultSet.getInt(1);
+                System.out.println(quantity);
+                if (quantity >= 1) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return false;
     }
 
     /**
      * Create tour from database
+     *
      * @param resultSet
      * @return
      * @throws DAOException
      */
-    @Override
-    protected Tour createEntity(ResultSet resultSet) throws DAOException {
+
+
+    private Tour createEntity(ResultSet resultSet) throws DAOException {
+
+        String idTourParam = "idTour";
+        String dateParam = "Date";
+        String isHotParam = "isHot";
+        String costParam = "Cost";
+        String discountParam = "Discount";
+        String countryParam = "Country";
+        String tourTypeNameParam = "TourType.Name";
+
         Tour tour = new Tour();
+
         try {
-            tour.setId(resultSet.getInt("idTour"));
-            Date date = resultSet.getDate("Date");
+            tour.setId(resultSet.getInt(idTourParam));
+            Date date = resultSet.getDate(dateParam);
             GregorianCalendar calendar = new GregorianCalendar();
             calendar.setTime(date);
             tour.setDate(calendar);
-            Integer isHot = resultSet.getInt("isHot");
+            Integer isHot = resultSet.getInt(isHotParam);
             switch (isHot) {
                 case (1):
                     tour.setHot(true);
@@ -256,11 +284,11 @@ public class TourDAO extends AbstractDAO<Tour> {
                 default:
                     throw new DAOException("Wrong Data format");
             }
-            tour.setCost(resultSet.getInt("Cost"));
-            tour.setDiscount(resultSet.getInt("Discount"));
-            tour.setCountry(resultSet.getString("Country"));
-            String typeOfTour=resultSet.getString("TourType.Name");
-            TourType tour_type=TourType.valueOf(typeOfTour.replace("-", "_").toUpperCase());
+            tour.setCost(resultSet.getInt(costParam));
+            tour.setDiscount(resultSet.getInt(discountParam));
+            tour.setCountry(resultSet.getString(countryParam));
+            String typeOfTour = resultSet.getString(tourTypeNameParam);
+            TourType tour_type = TourType.valueOf(typeOfTour.replace("-", "_").toUpperCase());
             tour.setTourType(tour_type);
         } catch (SQLException e) {
             throw new DAOException(e);

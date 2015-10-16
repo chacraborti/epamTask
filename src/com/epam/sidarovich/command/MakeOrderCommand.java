@@ -1,29 +1,32 @@
 package com.epam.sidarovich.command;
 
-import com.epam.sidarovich.manager.*;
 import com.epam.sidarovich.entity.Order;
 import com.epam.sidarovich.entity.OrderStatus;
 import com.epam.sidarovich.entity.Tour;
 import com.epam.sidarovich.entity.User;
 import com.epam.sidarovich.exception.CommandException;
-import com.epam.sidarovich.exception.LogicException;
-import com.epam.sidarovich.logic.OrderLogic;
-import com.epam.sidarovich.logic.TourLogic;
+import com.epam.sidarovich.exception.ServiceException;
+import com.epam.sidarovich.manager.PathPageManager;
+import com.epam.sidarovich.service.OrderService;
+import com.epam.sidarovich.service.TourService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 /**
  * Created by ilona on 05.05.15.
  */
-public class MakeOrderCommand implements ActionCommand{
+public class MakeOrderCommand implements ActionCommand {
+
+    private static final String TOUR_ID_PARAM = "tourId";
+    private static final String USER_ATTR = "user";
+    private static final String ORDERS_ATTR = "orders";
 
     /**
      * User make order, go to cart page
+     *
      * @param request
      * @return
      * @throws CommandException
@@ -32,33 +35,24 @@ public class MakeOrderCommand implements ActionCommand{
     public String execute(HttpServletRequest request) throws CommandException {
 
         HttpSession session = request.getSession();
-        OrderLogic orderLogic = new OrderLogic();
-        TourLogic tourLogic=new TourLogic();
+        OrderService orderService = new OrderService();
+        TourService tourService = new TourService();
 
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute(USER_ATTR);
         String email = user.getEmail();
         Tour tour;
-        int idTour=Integer.valueOf(request.getParameter("tourId"));
-         try {
-            tour = tourLogic.createTourById(idTour);
-        } catch (LogicException e) {
-            throw new CommandException(e);
-        }
-        Order order;
-        try {
-            order=orderLogic.createOrder(tour, email, OrderStatus.ACTIVE);
-        } catch (LogicException e) {
-            throw new CommandException();
-        }
         List<Order> orderList;
+        int idTour = Integer.valueOf(request.getParameter(TOUR_ID_PARAM));
         try {
-           orderList = orderLogic.findOrderByEmail(email);
-        } catch (LogicException e) {
+            tour = tourService.createTourById(idTour);
+            orderService.createOrder(tour, email, OrderStatus.ACTIVE);
+            orderList = orderService.findOrdersByEmail(email);
+        } catch (ServiceException e) {
             throw new CommandException(e);
         }
 
         Collections.reverse(orderList);
-        request.setAttribute("orders",orderList);
+        request.setAttribute(ORDERS_ATTR, orderList);
         PathPageManager pathPageManager = new PathPageManager();
         return pathPageManager.getProperty("path.page.cart");
 

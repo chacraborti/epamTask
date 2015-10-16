@@ -1,6 +1,5 @@
 package com.epam.sidarovich.entity;
 
-import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 /**
@@ -17,15 +16,9 @@ public class Tour extends Entity {
 
     public Tour() {
     }
-    public Tour(int id, GregorianCalendar date,  boolean isHot, TourType tourType, int cost, String country) {
-        this.id=id;
-        this.date = date;
-        this.isHot = isHot;
-        this.tourType = tourType;
-        this.cost = cost;
-        this.country = country;
-    }
-    public Tour(GregorianCalendar date,  boolean isHot, TourType tourType, int cost, String country) {
+
+    public Tour(int id, GregorianCalendar date, boolean isHot, TourType tourType, int cost, String country) {
+        this.id = id;
         this.date = date;
         this.isHot = isHot;
         this.tourType = tourType;
@@ -33,9 +26,14 @@ public class Tour extends Entity {
         this.country = country;
     }
 
-    public void setIsHot(Boolean isHot) {
+    public Tour(GregorianCalendar date, boolean isHot, TourType tourType, int cost, String country) {
+        this.date = date;
         this.isHot = isHot;
+        this.tourType = tourType;
+        this.cost = cost;
+        this.country = country;
     }
+
 
     public int getId() {
         return id;
@@ -96,9 +94,7 @@ public class Tour extends Entity {
 
     @Override
     public String toString() {
-        return "Tour{" +
-                "date=" + date +
-                ", isHot=" + isHot +
+        return "Tour{ isHot=" + isHot +
                 ", tourType=" + tourType +
                 ", cost=" + cost +
                 ", discount=" + discount +

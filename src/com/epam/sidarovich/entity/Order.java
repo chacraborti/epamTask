@@ -13,7 +13,7 @@ public class Order extends Entity {
     }
 
     public Order(Tour tour, String emailUser, OrderStatus orderStatus) {
-        this.tour=tour;
+        this.tour = tour;
         this.emailUser = emailUser;
         this.orderStatus = orderStatus;
     }

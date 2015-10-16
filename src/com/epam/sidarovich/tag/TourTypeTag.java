@@ -6,7 +6,7 @@ import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class TourTypeTag extends TagSupport {
-        private String tourType;
+    private String tourType;
 
     public void setTourType(String tourType) {
         this.tourType = tourType;
@@ -14,6 +14,7 @@ public class TourTypeTag extends TagSupport {
 
     /**
      * Custom tag, showing the picture depend on tour type
+     *
      * @return
      * @throws JspException
      */
@@ -21,18 +22,15 @@ public class TourTypeTag extends TagSupport {
     public int doStartTag() throws JspException {
         try {
 
-            String path=null;
+            String path = null;
             if ("REST".equalsIgnoreCase(tourType)) {
-                path="img/rest.jpg";
-            }
-            else if ("EXCURSION".equalsIgnoreCase(tourType)){
-                path="img/excursion.jpg";}
-
-            else if ("SHOPPING".equalsIgnoreCase(tourType)){
-                path="img/shopping.jpg";
-            }
-            else{
-                path="img/nichego0_0.jpg";
+                path = "img/rest.jpg";
+            } else if ("EXCURSION".equalsIgnoreCase(tourType)) {
+                path = "img/excursion.jpg";
+            } else if ("SHOPPING".equalsIgnoreCase(tourType)) {
+                path = "img/shopping.jpg";
+            } else {
+                path = "img/nichego0_0.jpg";
             }
             pageContext.getOut().write("<img src=" + path + ">");
         } catch (IOException e) {
@@ -40,6 +38,7 @@ public class TourTypeTag extends TagSupport {
         }
         return SKIP_BODY;
     }
+
     @Override
     public int doEndTag() throws JspException {
         return EVAL_PAGE;

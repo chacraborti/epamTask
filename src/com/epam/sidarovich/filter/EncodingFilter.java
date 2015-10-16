@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Created by ilona on 28.04.15.
  */
-@WebFilter(urlPatterns = { "/*" }, initParams = {@WebInitParam(name = "encoding", value = "UTF-8", description = "Encoding Param") })
+@WebFilter(urlPatterns = {"/*"}, initParams = {@WebInitParam(name = "encoding", value = "UTF-8", description = "Encoding Param")})
 
 public class EncodingFilter implements Filter {
 
@@ -21,6 +21,7 @@ public class EncodingFilter implements Filter {
 
     /**
      * Filter request encoding
+     *
      * @param request
      * @param response
      * @param chain

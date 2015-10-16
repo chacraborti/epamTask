@@ -7,14 +7,15 @@ import java.util.regex.Pattern;
  * Created by ilona on 11.05.15.
  */
 public class EntranceValidator {
-    public static final String EMAIL_PATTERN="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-    public static final String LETTER_UPPER_CASE="[A-Z]";
-    public static final String LETTER_LOWER_CASE="[a-z]";
-    public static final String NUMBER="\\d";
-    public static final int PASSWORD_LENGTH=8;
+    public static final String EMAIL_PATTERN = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+    public static final String LETTER_UPPER_CASE = "[A-Z]";
+    public static final String LETTER_LOWER_CASE = "[a-z]";
+    public static final String NUMBER = "\\d";
+    public static final int PASSWORD_LENGTH = 8;
 
     /**
      * Validate email
+     *
      * @param email
      * @return
      */
@@ -26,6 +27,7 @@ public class EntranceValidator {
 
     /**
      * Validate password
+     *
      * @param pass1
      * @param pass2
      * @return

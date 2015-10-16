@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<fmt:bundle basename="resources.pagecontent" prefix = "header." >
+<fmt:bundle basename="resources.pagecontent" prefix="header.">
     <html>
     <head>
         <link href="css/style.css" rel="stylesheet">
@@ -16,23 +16,27 @@
             </div>
 
             <div class="section" id="hello">
-                <form name="helloForm" method="POST" action="controller">
+                <form name="helloForm" method="GET" action="controller">
                     <c:if test="${user!=null}">
-                    <p><fmt:message key="hello" /> ${user.name}!</p>
+                        <p><fmt:message key="hello"/> ${user.name}!</p>
                     </c:if>
                 </form>
             </div>
 
-            <div class="section" id="logout">
-                <form name="logoutForm" method="POST" action="controller">
-                    <input type="hidden" name="command" value="logout" />
-                    <p><input type="submit" value=<fmt:message key="log_out" /> class="button"></p>
 
-                </form>
+            <div class="section" id="logout">
+
+                <form name="logoutForm" method="GET" action="controller">
+                    <input type="hidden" name="command" value="logout"/>
+
+                    <p><input type="submit" value=
+                        <fmt:message key="log_out"/> class="button"></p>
+
                 </form>
             </div>
 
         </div>
     </header>
-    </body></html>
+    </body>
+    </html>
 </fmt:bundle>

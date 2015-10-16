@@ -3,11 +3,11 @@ package com.epam.sidarovich.command;
 import com.epam.sidarovich.entity.Order;
 import com.epam.sidarovich.entity.User;
 import com.epam.sidarovich.exception.CommandException;
-import com.epam.sidarovich.exception.LogicException;
-import com.epam.sidarovich.logic.OrderLogic;
+import com.epam.sidarovich.exception.ServiceException;
 import com.epam.sidarovich.manager.MessageManager;
 import com.epam.sidarovich.manager.PathPageManager;
 import com.epam.sidarovich.manager.SessionLocaleManager;
+import com.epam.sidarovich.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,8 +18,11 @@ import java.util.Locale;
 /**
  * Created by ilona on 18.05.15.
  */
-public class ObserveOrdersCommand implements ActionCommand{
+public class ObserveOrdersCommand implements ActionCommand {
 
+    private static final String USER_ATTR = "user";
+    private static final String EMPTY_CART = "emptyCart";
+    private static final String ORDERS_ATTR = "orders";
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
@@ -27,24 +30,23 @@ public class ObserveOrdersCommand implements ActionCommand{
         MessageManager messageManager = new MessageManager();
         SessionLocaleManager sessionLocaleManager = new SessionLocaleManager();
         Locale locale = sessionLocaleManager.receiveLocale(session);
-        User user = (User)session.getAttribute("user");
-        OrderLogic orderLogic = new OrderLogic();
+        User user = (User) session.getAttribute(USER_ATTR);
+        OrderService orderService = new OrderService();
         String email = user.getEmail();
-        List<Order> orderList;
+        List<Order> orderList = null;
         try {
-            orderList = orderLogic.findOrderByEmail(email);
-        } catch (LogicException e) {
+            if (!user.getIsAdmin())
+                orderList = orderService.findOrdersByEmail(email);
+        } catch (ServiceException e) {
             throw new CommandException(e);
         }
-        if(orderList.isEmpty()){
-            request.setAttribute("emptyCart", messageManager.getProperty("message.emptyCart",locale));
+        if (orderList.isEmpty()) {
+            request.setAttribute(EMPTY_CART, messageManager.getProperty("message.emptyCart", locale));
         }
 
         Collections.reverse(orderList);
-        request.setAttribute("orders",orderList);
+        request.setAttribute(ORDERS_ATTR, orderList);
         PathPageManager pathPageManager = new PathPageManager();
         return pathPageManager.getProperty("path.page.cart");
     }
-
-
 }

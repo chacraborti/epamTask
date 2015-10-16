@@ -8,92 +8,96 @@ public enum CommandEnum {
 
         this.command = new LoginCommand();
     }
-         },
+    },
     LOGOUT {
         {
             this.command = new LogoutCommand();
-        } },
+        }},
     TOURS {
         {
-           this.command = new ObserveToursCommand();
+            this.command = new ObserveToursCommand();
         }
 
     },
-    LANGUAGE{
+    LANGUAGE {
         {
-        this.command = new SelectLanguageCommand();
-    }
-    },
-    SIGNUP{
-        {
-            this.command = new SignUpPageUpCommand();
+            this.command = new SelectLanguageCommand();
         }
     },
-    SUBMIT_SIGNUP{
+    SUBMIT_SIGNUP {
         {
             this.command = new SignUpCommand();
         }
     },
-    ORDER{
+    ORDER {
         {
             this.command = new MakeOrderCommand();
         }
     },
-    DELETE_USER{
+    DELETE_USER {
         {
             this.command = new DeleteUserCommand();
         }
     },
-    MAKE_REGULAR{
+    MAKE_REGULAR {
         {
             this.command = new MakeRegularCommand();
         }
     },
-    CREATE_TOUR{
-        {
-            this.command = new CreateTourPageCommand();
-        }
-    },
-    SUBMIT_CREATE_TOUR{
+    SUBMIT_CREATE_TOUR {
         {
             this.command = new CreateTourCommand();
         }
     },
-    DELETE_TOUR{
+    DELETE_TOUR {
         {
             this.command = new DeleteTourCommand();
         }
-    }
-    ,
-    VIEW_USERS{
+    },
+    VIEW_USERS {
         {
             this.command = new ObserveUsersCommand();
         }
-    }
-    ,
-    CANCEL_ORDER{
+    },
+    CANCEL_ORDER {
         {
             this.command = new CancelOrderCommand();
         }
-    } ,
-    PAY_ORDER{
+    },
+    PAY_ORDER {
         {
             this.command = new PayOrderCommand();
         }
     },
-    USER_DISCOUNT{
+    USER_DISCOUNT {
         {
             this.command = new SetUserDiscountCommand();
         }
     },
-    VIEW_TOURS{
+    VIEW_TOURS {
         {
             this.command = new ObserveToursCommand();
         }
     },
-    VIEW_ORDERS{
+    VIEW_ORDERS {
         {
             this.command = new ObserveOrdersCommand();
+        }
+    },
+
+    UPDATE_TOUR {
+        {
+            this.command = new UpdateTourCommand();
+        }
+    },
+    VIEW_PAID_ORDERS {
+        {
+            this.command = new ObservePaidOrdersCommand();
+        }
+    },
+    TO_GO_TO {
+        {
+            this.command = new ToGoToCommand();
         }
     };
 
